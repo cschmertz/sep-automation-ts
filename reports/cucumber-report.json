@@ -1,0 +1,356 @@
+[
+  {
+    "description": "    As a customer, I should be able to see payment plan options in Step 2.",
+    "elements": [
+      {
+        "description": "",
+        "id": "view-payment-plan-options-in-step-2---#!-test-only;verify-upfront-payment-plan",
+        "keyword": "Scenario",
+        "line": 26,
+        "name": "Verify Upfront payment plan",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 5004541958
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 22,
+            "name": "user is on the enrollment page",
+            "match": {
+              "location": "steps/getting-started/startAndRefundDates.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1327997333
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 23,
+            "name": "user has completed step one with valid information",
+            "match": {
+              "location": "steps/payment-plans/clickNextButtonStep2.ts:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 140055875
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 24,
+            "name": "user is on step two of the enrollment process",
+            "match": {
+              "location": "steps/payment-plans/clickNextButtonStep2.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 382308708
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 27,
+            "name": "there should be one upfront price",
+            "match": {
+              "location": "steps/payment-plans/viewPaymentPlanOptionStep2.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 6694084
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "Upfront"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "$<upfront_price> pay once"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 28,
+            "name": "the upfront payment section text should display:",
+            "match": {
+              "location": "steps/payment-plans/viewPaymentPlanOptionStep2.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 17606917
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 198951457
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@sep17",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "view-payment-plan-options-in-step-2---#!-test-only;verify-installment-payment-plan",
+        "keyword": "Scenario",
+        "line": 32,
+        "name": "Verify Installment payment plan",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 4950288999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 22,
+            "name": "user is on the enrollment page",
+            "match": {
+              "location": "steps/getting-started/startAndRefundDates.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1302568290
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 23,
+            "name": "user has completed step one with valid information",
+            "match": {
+              "location": "steps/payment-plans/clickNextButtonStep2.ts:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 144384291
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 24,
+            "name": "user is on step two of the enrollment process",
+            "match": {
+              "location": "steps/payment-plans/clickNextButtonStep2.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 382616208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 33,
+            "name": "there should be 5 installments",
+            "match": {
+              "location": "steps/payment-plans/viewPaymentPlanOptionStep2.ts:25"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 13385957
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "5 Installments"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "$<monthly_price> per month"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 34,
+            "name": "the installment payment section text should display:",
+            "match": {
+              "location": "steps/payment-plans/viewPaymentPlanOptionStep2.ts:34"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 11619334
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 210293500
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@sep17",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "view-payment-plan-options-in-step-2---#!-test-only;verify-payment-plan-structure",
+        "keyword": "Scenario",
+        "line": 38,
+        "name": "Verify payment plan structure",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1592966375
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 22,
+            "name": "user is on the enrollment page",
+            "match": {
+              "location": "steps/getting-started/startAndRefundDates.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 994997874
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 23,
+            "name": "user has completed step one with valid information",
+            "match": {
+              "location": "steps/payment-plans/clickNextButtonStep2.ts:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 79125500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 24,
+            "name": "user is on step two of the enrollment process",
+            "match": {
+              "location": "steps/payment-plans/clickNextButtonStep2.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 867311249
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "Choose a payment plan"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Upfront"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "$400 pay once"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "5 Installments"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "$100 per month"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 39,
+            "name": "the payment plan elements should appear in order:",
+            "match": {
+              "location": "steps/payment-plans/viewPaymentPlanOptionStep2.ts:48"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 70919167
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 111920249
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@sep17",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "view-payment-plan-options-in-step-2---#!-test-only",
+    "line": 2,
+    "keyword": "Feature",
+    "name": "View payment plan options in Step 2   #! test only",
+    "tags": [
+      {
+        "name": "@sep17",
+        "line": 1
+      }
+    ],
+    "uri": "features/payment-plans/ViewPaymentPlanOptionStep2.feature"
+  }
+]
