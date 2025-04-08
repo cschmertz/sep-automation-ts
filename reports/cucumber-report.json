@@ -1,72 +1,46 @@
 [
   {
-    "description": "    As a customer, I should be able to see payment plan options in Step 2.",
+    "description": "",
     "elements": [
       {
         "description": "",
-        "id": "view-payment-plan-options-in-step-2---#!-test-only;verify-upfront-payment-plan",
+        "id": "customer-management;create-customer-with-payment-method",
         "keyword": "Scenario",
-        "line": 26,
-        "name": "Verify Upfront payment plan",
+        "line": 7,
+        "name": "Create customer with payment method",
         "steps": [
           {
             "keyword": "Before",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 5004541958
+              "duration": 2153437209
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 22,
-            "name": "user is on the enrollment page",
+            "line": 4,
+            "name": "I have a valid Stripe API test key",
             "match": {
-              "location": "steps/getting-started/startAndRefundDates.ts:6"
+              "location": "steps/payment-processing/CommonSteps.ts:6"
             },
             "result": {
               "status": "passed",
-              "duration": 1327997333
+              "duration": 13674915
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 23,
-            "name": "user has completed step one with valid information",
+            "line": 5,
+            "name": "I have initialized the Stripe client",
             "match": {
-              "location": "steps/payment-plans/clickNextButtonStep2.ts:7"
+              "location": "steps/payment-processing/CommonSteps.ts:10"
             },
             "result": {
               "status": "passed",
-              "duration": 140055875
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 24,
-            "name": "user is on step two of the enrollment process",
-            "match": {
-              "location": "steps/payment-plans/clickNextButtonStep2.ts:11"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 382308708
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 27,
-            "name": "there should be one upfront price",
-            "match": {
-              "location": "steps/payment-plans/viewPaymentPlanOptionStep2.ts:6"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 6694084
+              "duration": 1867207
             }
           },
           {
@@ -75,138 +49,68 @@
                 "rows": [
                   {
                     "cells": [
-                      "Upfront"
+                      "email",
+                      "name"
                     ]
                   },
                   {
                     "cells": [
-                      "$<upfront_price> pay once"
+                      "new.user@test.com",
+                      "New Test User"
                     ]
                   }
                 ]
               }
             ],
-            "keyword": "And ",
-            "line": 28,
-            "name": "the upfront payment section text should display:",
-            "match": {
-              "location": "steps/payment-plans/viewPaymentPlanOptionStep2.ts:12"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 17606917
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 198951457
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@sep17",
-            "line": 1
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "view-payment-plan-options-in-step-2---#!-test-only;verify-installment-payment-plan",
-        "keyword": "Scenario",
-        "line": 32,
-        "name": "Verify Installment payment plan",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 4950288999
-            }
-          },
-          {
-            "arguments": [],
             "keyword": "Given ",
-            "line": 22,
-            "name": "user is on the enrollment page",
+            "line": 8,
+            "name": "I create a new customer with:",
             "match": {
-              "location": "steps/getting-started/startAndRefundDates.ts:6"
+              "location": "steps/payment-processing/CustomerManagement.ts:13"
             },
             "result": {
               "status": "passed",
-              "duration": 1302568290
+              "duration": 706975125
             }
           },
           {
             "arguments": [],
-            "keyword": "And ",
-            "line": 23,
-            "name": "user has completed step one with valid information",
+            "keyword": "When ",
+            "line": 11,
+            "name": "I attach a payment method \"pm_card_mastercard\" to the customer",
             "match": {
-              "location": "steps/payment-plans/clickNextButtonStep2.ts:7"
+              "location": "steps/payment-processing/CustomerManagement.ts:25"
             },
             "result": {
-              "status": "passed",
-              "duration": 144384291
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 24,
-            "name": "user is on step two of the enrollment process",
-            "match": {
-              "location": "steps/payment-plans/clickNextButtonStep2.ts:11"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 382616208
+              "status": "failed",
+              "duration": 598644207,
+              "error_message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"pm_\u001b[7mcard_mastercard\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"pm_\u001b[7m1RBbrgQ2uiTOG1pJScXaZVZI\u001b[27m\"\u001b[39m\n    at Proxy.<anonymous> (/Users/conorschmertz/Desktop/sep-automation-ts/node_modules/playwright/lib/matchers/expect.js:254:37)\n    at CustomWorld.<anonymous> (/Users/conorschmertz/Desktop/sep-automation-ts/steps/payment-processing/CustomerManagement.ts:30:36)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)"
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 33,
-            "name": "there should be 5 installments",
+            "line": 12,
+            "name": "the customer should have 1 saved payment method",
             "match": {
-              "location": "steps/payment-plans/viewPaymentPlanOptionStep2.ts:25"
+              "location": "steps/payment-processing/CustomerManagement.ts:34"
             },
             "result": {
-              "status": "passed",
-              "duration": 13385957
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "5 Installments"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "$<monthly_price> per month"
-                    ]
-                  }
-                ]
-              }
-            ],
+            "arguments": [],
             "keyword": "And ",
-            "line": 34,
-            "name": "the installment payment section text should display:",
+            "line": 13,
+            "name": "the payment method should be valid",
             "match": {
-              "location": "steps/payment-plans/viewPaymentPlanOptionStep2.ts:34"
+              "location": "steps/payment-processing/CustomerManagement.ts:43"
             },
             "result": {
-              "status": "passed",
-              "duration": 11619334
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -214,113 +118,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 210293500
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@sep17",
-            "line": 1
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "view-payment-plan-options-in-step-2---#!-test-only;verify-payment-plan-structure",
-        "keyword": "Scenario",
-        "line": 38,
-        "name": "Verify payment plan structure",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 1592966375
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 22,
-            "name": "user is on the enrollment page",
-            "match": {
-              "location": "steps/getting-started/startAndRefundDates.ts:6"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 994997874
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 23,
-            "name": "user has completed step one with valid information",
-            "match": {
-              "location": "steps/payment-plans/clickNextButtonStep2.ts:7"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 79125500
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 24,
-            "name": "user is on step two of the enrollment process",
-            "match": {
-              "location": "steps/payment-plans/clickNextButtonStep2.ts:11"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 867311249
-            }
-          },
-          {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "Choose a payment plan"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "Upfront"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "$400 pay once"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "5 Installments"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "$100 per month"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "Then ",
-            "line": 39,
-            "name": "the payment plan elements should appear in order:",
-            "match": {
-              "location": "steps/payment-plans/viewPaymentPlanOptionStep2.ts:48"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 70919167
+              "duration": 259990499
             }
           },
           {
@@ -328,29 +126,53 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 111920249
+              "duration": 235958
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 145125
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 154334
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 471642374
             }
           }
         ],
         "tags": [
           {
-            "name": "@sep17",
+            "name": "@sep33",
             "line": 1
           }
         ],
         "type": "scenario"
       }
     ],
-    "id": "view-payment-plan-options-in-step-2---#!-test-only",
+    "id": "customer-management",
     "line": 2,
     "keyword": "Feature",
-    "name": "View payment plan options in Step 2   #! test only",
+    "name": "Customer Management",
     "tags": [
       {
-        "name": "@sep17",
+        "name": "@sep33",
         "line": 1
       }
     ],
-    "uri": "features/payment-plans/ViewPaymentPlanOptionStep2.feature"
+    "uri": "features/payment-processing/CustomerManagement.feature"
   }
 ]
