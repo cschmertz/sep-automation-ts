@@ -1,13 +1,23 @@
 {
-    "compilerOptions": {
-      /* Language and Environment */
-      "target": "ES2018",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-      "module": "commonjs",                                /* Specify what module code is generated. */
-      "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
-      "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
-  
-      "strict": true,                                      /* Enable all strict type-checking options. */
-      
-      "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
-    },
+  "compilerOptions": {
+
+    // Specify the target JavaScript version to compile to (supports async/await, spread, etc.)
+    "target": "ES2018",
+
+    // Specify the module system (CommonJS is standard for Node.js environments)
+    "module": "commonjs",
+
+    // Allows default imports from CommonJS modules, improving compatibility and import syntax
+    "esModuleInterop": true,
+
+    // Enforces consistent casing in import paths to avoid bugs, especially on case-sensitive systems
+    "forceConsistentCasingInFileNames": true,
+
+    // Enables all strict type-checking options (null checks, no implicit any, etc.)
+    "strict": true,
+
+    // Skips type-checking of declaration files (.d.ts), speeding up compilation
+    "skipLibCheck": true
+    
   }
+}

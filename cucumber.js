@@ -1,66 +1,34 @@
 /**
- * Cucumber.js configuration file
- * This file exports the configuration object for Cucumber.js test runner.
+ * Cucumber.js configuration for running TypeScript-based tests
  */
 module.exports = {
-  
-  /**
-   * Default configuration for Cucumber.js
-   */
   default: {
-    
-    /**
-     * Number of parallel workers to use for running tests
-     * @type {number}
-     */
+
+    // Run tests in parallel using 2 workers
     parallel: 2,
 
-    /**
-     * Glob patterns for locating feature files
-     * @type {string[]}
-     */
+    // Location of feature files
     paths: ["./features/**/*.feature"],
 
-    /**
-     * Modules to require before running tests
-     * ts-node/register is required for TypeScript support
-     * @type {string[]}
-     */
+    // Modules to load before tests (TypeScript support)
     requireModule: ['ts-node/register'],
 
-    /**
-     * Glob patterns for step definitions and hooks
-     * @type {string[]}
-     */
+    // Location of step definitions and hooks
     require: ["./steps/**/*.ts", "./hooks/**/*.ts"],
 
-    /**
-     * Output formats for test results
-     * @type {string[]}
-     */
+    // Output formats: console, JSON, and HTML reports
     format: [
-      "progress-bar",                         // Console output
-      "json:reports/cucumber-report.json",    // JSON report
-      "html:reports/cucumber-report.html",    // HTML report
+      "progress-bar",
+      "json:reports/cucumber-report.json",
+      "html:reports/cucumber-report.html",
     ],
 
-    /**
-     * Formatting options for test output
-     * @type {Object}
-     */
-    formatOptions: { 
-      /**
-       * Interface style for generated step definition snippets
-       * @type {string}
-       */
-      snippetInterface: "async-await" 
+    // Use async/await style in generated snippets
+    formatOptions: {
+      snippetInterface: "async-await"
     },
 
-    /**
-     * Parameters to be passed to the world object
-     * Spreads all environment variables into world parameters
-     * @type {Object}
-     */
+    // Make all environment variables available in world context
     worldParameters: {
       ...process.env,
     },
