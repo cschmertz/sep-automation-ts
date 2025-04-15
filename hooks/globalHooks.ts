@@ -3,6 +3,10 @@ import { Browser, BrowserContext, chromium, firefox, Page, webkit } from "@playw
 import { initElements } from "../globalPagesSetup";
 import fs from "fs";
 import path from "path";
+import dotenv from 'dotenv';
+import { getStripeCredentials } from '../utilities/jsonUtils';
+
+dotenv.config();
 
 /**
  * Configuration constants
@@ -60,6 +64,9 @@ class CustomWorld {
   context!: BrowserContext;
   page!: Page;
 
+  cardNumbers: string[] = [];
+  countries: string[] = [];
+
   /**
    * Initializes the browser based on the configured browser type
    */
@@ -88,6 +95,16 @@ class CustomWorld {
         height: window.screen.availHeight,
       })));
     }
+
+    // Load and store Stripe credentials from JSON
+    const jsonPath = process.env.STRIPE_CREDENTIALS;
+    if (!jsonPath) throw new Error("STRIPE_CREDENTIALS path not set in .env");
+
+    const { card_numbers, countries } = getStripeCredentials(jsonPath);
+    this.cardNumbers = card_numbers.map(n => n.toString()); // Ensure numbers are strings
+    this.countries = countries;
+
+    initElements(this.page);
 
     initElements(this.page);
   }

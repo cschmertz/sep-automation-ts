@@ -138,10 +138,10 @@ export class ReviewPaymentPage extends BasePage {
   ];
 
   public async enterValidCreditCardDetails(): Promise<void> {
-    const cardNumber = await UserDataGenerator.enterRandomCardDetails();
+    const cardNumber = UserDataGenerator.getRandomCardNumber();
     const expiryDate = UserDataGenerator.generateFutureExpirationDate();
     const cvc = UserDataGenerator.generateRandomCVC();
-    const country = await UserDataGenerator.getRandomCountry();
+    const country = UserDataGenerator.getRandomCountry();
     await this.cardNumberInput.fill(cardNumber);
     await this.expiryDateInput.fill(expiryDate);
     await this.cvcInput.fill(cvc);
@@ -153,12 +153,12 @@ export class ReviewPaymentPage extends BasePage {
   }
 
   public async enterInvalidCreditCardDetails(): Promise<void> {
-    const cardNumber = await UserDataGenerator.getInvalidCardNumber();
+    const cardNumber = UserDataGenerator.getInvalidCardNumber();
     await this.cardNumberInput.fill(cardNumber);
   }
 
   public async enterIncompleteCreditCardDetails(): Promise<void> {
-    const cardNumber = await UserDataGenerator.getIncompleteCardNumber();
+    const cardNumber = UserDataGenerator.getIncompleteCardNumber();
     await this.cardNumberInput.fill(cardNumber);
   }
 

@@ -1,395 +1,176 @@
 [
   {
-    "description": "    As a customer, I want to be able to Choose a payment plan from the available options \n    so that I can choose the one that best suits my needs.",
+    "description": "    As a customer, I should be able to make payments so I can enroll in the program.",
     "elements": [
       {
         "description": "",
-        "id": "selecting-a-price-plan;verify-payment-plan-is-highlighted",
-        "keyword": "Scenario Outline",
-        "line": 23,
-        "name": "Verify payment plan is highlighted",
+        "id": "make-a-payment;successful-payment-with-valid-card-information-and-confirmation-details",
+        "keyword": "Scenario",
+        "line": 20,
+        "name": "Successful payment with valid card information and confirmation details",
         "steps": [
           {
             "keyword": "Before",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 4338594125
+              "duration": 2828852624
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 12,
+            "line": 15,
             "name": "user is on the enrollment page",
             "match": {
               "location": "steps/getting-started/startAndRefundDates.ts:6"
             },
             "result": {
               "status": "passed",
-              "duration": 2150526874
+              "duration": 1195730499
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 13,
+            "line": 16,
             "name": "user has completed step one with valid information",
             "match": {
               "location": "steps/payment-plans/clickNextButtonStep2.ts:7"
             },
             "result": {
               "status": "passed",
-              "duration": 128886667
+              "duration": 148784125
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 14,
-            "name": "user is on step two of the enrollment process",
+            "line": 17,
+            "name": "user has completed step two with a valid option",
             "match": {
-              "location": "steps/payment-plans/clickNextButtonStep2.ts:11"
+              "location": "steps/submitting-payments/makePayment.ts:7"
             },
             "result": {
               "status": "passed",
-              "duration": 365412000
+              "duration": 1178677250
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 18,
+            "name": "user is on step three of the enrollment process",
+            "match": {
+              "location": "steps/submitting-payments/makePayment.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1916129041
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 17,
-            "name": "user selects the \"Upfront\" payment plan",
+            "line": 21,
+            "name": "user enters valid card information",
             "match": {
-              "location": "steps/payment-plans/clickNextButtonStep2.ts:18"
+              "location": "steps/submitting-payments/makePayment.ts:22"
             },
             "result": {
               "status": "passed",
-              "duration": 30834249
+              "duration": 3067700458
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 22,
+            "name": "user checks the terms and conditions checkbox",
+            "match": {
+              "location": "steps/submitting-payments/makePayment.ts:27"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3036434624
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 23,
+            "name": "user clicks on the Pay button",
+            "match": {
+              "location": "steps/submitting-payments/makePayment.ts:32"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 10054639917
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 18,
-            "name": "the selected plan should be highlighted",
+            "line": 24,
+            "name": "user is redirected to the confirmation page",
             "match": {
-              "location": "steps/payment-plans/selectingPaymentPlan.ts:6"
+              "location": "steps/submitting-payments/makePayment.ts:38"
             },
             "result": {
               "status": "passed",
-              "duration": 4363833
+              "duration": 7114666
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 19,
-            "name": "the 'Next' button should be active",
+            "line": 25,
+            "name": "steps 1, 2, and 3 in the stepper are green",
             "match": {
-              "location": "steps/payment-plans/selectingPaymentPlan.ts:11"
+              "location": "steps/submitting-payments/makePayment.ts:42"
             },
             "result": {
-              "status": "passed",
-              "duration": 7737041
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 128781417
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 555207
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 1022541
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 327542
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 154834
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@sep14",
-            "line": 1
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "selecting-a-price-plan;verify-payment-plan-is-highlighted",
-        "keyword": "Scenario Outline",
-        "line": 24,
-        "name": "Verify payment plan is highlighted",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 4087517083
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 12,
-            "name": "user is on the enrollment page",
-            "match": {
-              "location": "steps/getting-started/startAndRefundDates.ts:6"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1442903875
+              "status": "pending",
+              "duration": 9753667
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 13,
-            "name": "user has completed step one with valid information",
+            "line": 26,
+            "name": "the correct program name is displayed",
             "match": {
-              "location": "steps/payment-plans/clickNextButtonStep2.ts:7"
+              "location": "steps/submitting-payments/makePayment.ts:46"
             },
             "result": {
-              "status": "passed",
-              "duration": 154848833
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 14,
-            "name": "user is on step two of the enrollment process",
-            "match": {
-              "location": "steps/payment-plans/clickNextButtonStep2.ts:11"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 372951209
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 17,
-            "name": "user selects the \"5 Installments\" payment plan",
-            "match": {
-              "location": "steps/payment-plans/clickNextButtonStep2.ts:18"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 62954125
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 18,
-            "name": "the selected plan should be highlighted",
-            "match": {
-              "location": "steps/payment-plans/selectingPaymentPlan.ts:6"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 6488000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 19,
-            "name": "the 'Next' button should be active",
-            "match": {
-              "location": "steps/payment-plans/selectingPaymentPlan.ts:11"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 10447624
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 141843666
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 1072125
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 2545167
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 536416
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 302166
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@sep14",
-            "line": 1
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "selecting-a-price-plan;verify-user-can-change-the-selected-payment-plan",
-        "keyword": "Scenario Outline",
-        "line": 34,
-        "name": "Verify user can change the selected payment plan",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 1662751624
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 12,
-            "name": "user is on the enrollment page",
-            "match": {
-              "location": "steps/getting-started/startAndRefundDates.ts:6"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1017822291
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 13,
-            "name": "user has completed step one with valid information",
-            "match": {
-              "location": "steps/payment-plans/clickNextButtonStep2.ts:7"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 149851415
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 14,
-            "name": "user is on step two of the enrollment process",
-            "match": {
-              "location": "steps/payment-plans/clickNextButtonStep2.ts:11"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 403845665
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
             "line": 27,
-            "name": "user selects the \"Upfront\" payment plan",
+            "name": "the correct user email is displayed",
             "match": {
-              "location": "steps/payment-plans/clickNextButtonStep2.ts:18"
+              "location": "steps/submitting-payments/makePayment.ts:50"
             },
             "result": {
-              "status": "passed",
-              "duration": 49592958
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 28,
-            "name": "user changes payment plan selection",
+            "name": "the correct company contact information is displayed",
             "match": {
-              "location": "steps/payment-plans/selectingPaymentPlan.ts:16"
+              "location": "steps/submitting-payments/makePayment.ts:54"
             },
             "result": {
-              "status": "passed",
-              "duration": 297234666
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 29,
-            "name": "the newly selected payment plan should be highlighted",
-            "match": {
-              "location": "steps/payment-plans/selectingPaymentPlan.ts:20"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 3733625
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 30,
-            "name": "the previous selection should no longer be highlighted",
-            "match": {
-              "location": "steps/payment-plans/selectingPaymentPlan.ts:26"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2142542
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -397,7 +178,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 198546833
+              "duration": 154089125
             }
           },
           {
@@ -405,7 +186,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 356750
+              "duration": 258999
             }
           },
           {
@@ -413,7 +194,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 60832
+              "duration": 371584
             }
           },
           {
@@ -421,7 +202,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 61834
+              "duration": 97625
             }
           },
           {
@@ -429,184 +210,29 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 50166
+              "duration": 51666
             }
           }
         ],
         "tags": [
           {
-            "name": "@sep14",
-            "line": 1
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "selecting-a-price-plan;verify-user-can-change-the-selected-payment-plan",
-        "keyword": "Scenario Outline",
-        "line": 35,
-        "name": "Verify user can change the selected payment plan",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 1062245582
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 12,
-            "name": "user is on the enrollment page",
-            "match": {
-              "location": "steps/getting-started/startAndRefundDates.ts:6"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1078885666
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 13,
-            "name": "user has completed step one with valid information",
-            "match": {
-              "location": "steps/payment-plans/clickNextButtonStep2.ts:7"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 107593083
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 14,
-            "name": "user is on step two of the enrollment process",
-            "match": {
-              "location": "steps/payment-plans/clickNextButtonStep2.ts:11"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 365541334
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 27,
-            "name": "user selects the \"5 Installments\" payment plan",
-            "match": {
-              "location": "steps/payment-plans/clickNextButtonStep2.ts:18"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 43895624
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 28,
-            "name": "user changes payment plan selection",
-            "match": {
-              "location": "steps/payment-plans/selectingPaymentPlan.ts:16"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 46075542
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 29,
-            "name": "the newly selected payment plan should be highlighted",
-            "match": {
-              "location": "steps/payment-plans/selectingPaymentPlan.ts:20"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 5109333
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 30,
-            "name": "the previous selection should no longer be highlighted",
-            "match": {
-              "location": "steps/payment-plans/selectingPaymentPlan.ts:26"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 6567459
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 471752708
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 151125
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 77165
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 65333
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 101625
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@sep14",
+            "name": "@sep23",
             "line": 1
           }
         ],
         "type": "scenario"
       }
     ],
-    "id": "selecting-a-price-plan",
+    "id": "make-a-payment",
     "line": 2,
     "keyword": "Feature",
-    "name": "Selecting a price plan",
+    "name": "Make a payment",
     "tags": [
       {
-        "name": "@sep14",
+        "name": "@sep23",
         "line": 1
       }
     ],
-    "uri": "features/payment-plans/SelectingPaymentPlan.feature"
+    "uri": "features/submitting-payments/MakePayment.feature"
   }
 ]

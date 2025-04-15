@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
-import { getTestCardNumbers, getCountriesFromCSV } from '../utilities/csvUtils';
 import dotenv from 'dotenv';
+import { getStripeCredentials } from '../utilities/jsonUtils';
 
 dotenv.config();
 
@@ -41,14 +41,22 @@ export function generateInvalidUser(): InvalidUser {
   };
 }
 
-export async function enterRandomCardDetails(): Promise<string> {
-  const filePath = process.env.VALID_CARDS_CSV;
-  if (!filePath) throw new Error("VALID_CARDS_CSV environment variable is not set.");
-  
-  const cardNumbers = await getTestCardNumbers(filePath);
-  if (cardNumbers.length === 0) throw new Error("No test card numbers found in CSV");
-  
-  return cardNumbers[Math.floor(Math.random() * cardNumbers.length)];
+function getStripeData() {
+  const filePath = process.env.STRIPE_CREDENTIALS;
+  if (!filePath) throw new Error("STRIPE_CREDENTIALS environment variable is not set.");
+  return getStripeCredentials(filePath);
+}
+
+export function getRandomCardNumber(): string {
+  const { card_numbers } = getStripeData();
+  if (!card_numbers || card_numbers.length === 0) throw new Error("No card numbers found in JSON");
+  return String(faker.helpers.arrayElement(card_numbers));
+}
+
+export function getRandomCountry(): string {
+  const { countries } = getStripeData();
+  if (!countries || countries.length === 0) throw new Error("No countries found in JSON");
+  return faker.helpers.arrayElement(countries);
 }
 
 export function generateFutureExpirationDate(): string {
@@ -68,38 +76,24 @@ export function generateRandomCVC(): string {
   return Math.floor(100 + Math.random() * 900).toString();
 }
 
-export async function getRandomCountry(): Promise<string> {
-  const filePath = process.env.VALID_COUNTRIES_CSV;
-  if (!filePath) throw new Error("VALID_COUNTRIES_CSV environment variable is not set.");
-  
-  const countries = await getCountriesFromCSV(filePath);
-  if (countries.length === 0) throw new Error("No countries found in CSV");
-  
-  return countries[Math.floor(Math.random() * countries.length)];
+export function getIncompleteCardNumber(): string {
+  const cardNumber = getRandomCardNumber().replace(/\s+/g, '');
+  const pos = Math.floor(Math.random() * cardNumber.length);
+  const incomplete = cardNumber.slice(0, pos) + cardNumber.slice(pos + 1);
+  return incomplete.match(/.{1,4}/g)?.join(' ') || incomplete;
 }
 
-export async function getIncompleteCardNumber(): Promise<string> {
-  const validCardNumber = await enterRandomCardDetails();
-  const cleanCardNumber = validCardNumber.replace(/\s+/g, '');
-  const positionToRemove = Math.floor(Math.random() * cleanCardNumber.length);
-  const incompleteCardNumber = cleanCardNumber.slice(0, positionToRemove) + cleanCardNumber.slice(positionToRemove + 1);
-  
-  return incompleteCardNumber.match(/.{1,4}/g)?.join(' ') || incompleteCardNumber;
-}
-
-export async function getInvalidCardNumber(): Promise<string> {
-  const validCardNumber = await enterRandomCardDetails();
-  const cleanValidNumber = validCardNumber.replace(/\s+/g, '');
-  let randomCardNumber = '';
-  const length = 16;
-  for (let i = 0; i < length; i++) {
-    randomCardNumber += i === 0 ? Math.floor(Math.random() * 3) + 4 : Math.floor(Math.random() * 10);
+export function getInvalidCardNumber(): string {
+  const valid = getRandomCardNumber().replace(/\s+/g, '');
+  let invalid = '';
+  for (let i = 0; i < 16; i++) {
+    invalid += i === 0 ? Math.floor(Math.random() * 3) + 4 : Math.floor(Math.random() * 10);
   }
-  if (randomCardNumber === cleanValidNumber) {
-    const lastIndex = randomCardNumber.length - 1;
-    randomCardNumber = randomCardNumber.slice(0, lastIndex) + ((parseInt(randomCardNumber.charAt(lastIndex)) + 1) % 10);
+  if (invalid === valid) {
+    const lastIndex = invalid.length - 1;
+    invalid = invalid.slice(0, lastIndex) + ((+invalid[lastIndex] + 1) % 10);
   }
-  return randomCardNumber.match(/.{1,4}/g)?.join(' ') || randomCardNumber;
+  return invalid.match(/.{1,4}/g)?.join(' ') || invalid;
 }
 
 export function generateIncompleteCVC(): string {
@@ -128,15 +122,9 @@ export function generateExpiredDateThisYear(): string {
 }
 
 export function generateRandomZipCode(includeExtension: boolean = false): string {
-  const mainZipCode = Array.from(
-    { length: 5 },
-    () => Math.floor(Math.random() * 10)
-  ).join('');
+  const mainZipCode = Array.from({ length: 5 }, () => Math.floor(Math.random() * 10)).join('');
   if (includeExtension) {
-    const extension = Array.from(
-      { length: 4 },
-      () => Math.floor(Math.random() * 10)
-    ).join('');
+    const extension = Array.from({ length: 4 }, () => Math.floor(Math.random() * 10)).join('');
     return `${mainZipCode}-${extension}`;
   }
   return mainZipCode;
