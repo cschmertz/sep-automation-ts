@@ -5,6 +5,8 @@ import fs from "fs";
 import path from "path";
 import dotenv from 'dotenv';
 import { getStripeCredentials } from '../utilities/jsonUtils';
+import { ApiClient } from '../utilities/apiClient';
+import { apiConfig } from '../configs/apiConfig';
 
 dotenv.config();
 
@@ -64,6 +66,12 @@ class CustomWorld {
   context!: BrowserContext;
   page!: Page;
 
+  // API testing properties
+  apiClient!: ApiClient;
+  apiResponse: any = null;
+  apiResponseStatus: number = 0;
+  
+  // Data for UI test
   cardNumbers: string[] = [];
   countries: string[] = [];
 
@@ -85,38 +93,64 @@ class CustomWorld {
    * Initializes the test environment
    */
   async init(): Promise<void> {
-    this.browser = await this.initializeBrowser();
-    this.context = await this.browser.newContext(MAXIMIZED_WINDOW ? { viewport: null } : {});
-    this.page = await this.context.newPage();
+    // Initialize API client
+    this.apiClient = new ApiClient(apiConfig.baseUrl, {
+      timeout: apiConfig.timeout,
+    });
+    
+    // Only initialize browser for UI tests
+    if (process.env.TEST_TYPE !== 'api') {
+      this.browser = await this.initializeBrowser();
+      this.context = await this.browser.newContext(MAXIMIZED_WINDOW ? { viewport: null } : {});
+      this.page = await this.context.newPage();
 
-    if (MAXIMIZED_WINDOW) {
-      await this.page.setViewportSize(await this.page.evaluate(() => ({
-        width: window.screen.availWidth,
-        height: window.screen.availHeight,
-      })));
+      if (MAXIMIZED_WINDOW) {
+        await this.page.setViewportSize(await this.page.evaluate(() => ({
+          width: window.screen.availWidth,
+          height: window.screen.availHeight,
+        })));
+      }
+
+      // Load and store Stripe credentials from JSON
+      const jsonPath = process.env.STRIPE_CREDENTIALS;
+      if (!jsonPath) throw new Error("STRIPE_CREDENTIALS path not set in .env");
+
+      const { card_numbers, countries } = getStripeCredentials(jsonPath);
+      this.cardNumbers = card_numbers.map(n => n.toString()); // Ensure numbers are strings
+      this.countries = countries;
+
+      initElements(this.page);
     }
-
-    // Load and store Stripe credentials from JSON
-    const jsonPath = process.env.STRIPE_CREDENTIALS;
-    if (!jsonPath) throw new Error("STRIPE_CREDENTIALS path not set in .env");
-
-    const { card_numbers, countries } = getStripeCredentials(jsonPath);
-    this.cardNumbers = card_numbers.map(n => n.toString()); // Ensure numbers are strings
-    this.countries = countries;
-
-    initElements(this.page);
-
-    initElements(this.page);
   }
 
   /**
    * Closes the browser and page
    */
   async close(): Promise<void> {
-    await Promise.all([
-      this.page?.close().catch(err => console.warn('Error closing page:', err)),
-      this.browser?.close().catch(err => console.warn('Error closing browser:', err))
-    ]);
+    if (this.page || this.browser) {
+      await Promise.all([
+        this.page?.close().catch(err => console.warn('Error closing page:', err)),
+        this.browser?.close().catch(err => console.warn('Error closing browser:', err))
+      ]);
+    }
+  }
+
+  /**
+   * Authenticates with the API and gets a token
+   */
+  async authenticateApi(): Promise<string> {
+    const response = await this.apiClient.post('/auth', {
+      username: apiConfig.auth.username,
+      password: apiConfig.auth.password
+    });
+    
+    if (response.status !== 200) {
+      throw new Error(`Authentication failed with status ${response.status}`);
+    }
+    
+    const token = response.data.token;
+    this.apiClient.setAuthToken(token);
+    return token;
   }
 }
 

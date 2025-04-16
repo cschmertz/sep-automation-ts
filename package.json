@@ -6,6 +6,8 @@
     "test": "npx cucumber-js",
     "test:tag": "npx cucumber-js --tags @sep23",
     "test:smoke": "npx cucumber-js --tags @smoke",
+    "test:api": "cross-env TEST_TYPE=api npx cucumber-js --tags @api",
+    "test:ui": "cross-env TEST_TYPE=ui npx cucumber-js --tags @ui",
     "Mac-open:report": "open reports/cucumber-report.html",
     "Windows-open:report": "start reports/cucumber-report.html"
   },
@@ -17,12 +19,16 @@
     "@cucumber/cucumber": "^10.9.0",
     "@faker-js/faker": "^9.6.0",
     "@playwright/test": "^1.51.1",
+    "cross-env": "^7.0.3",
     "csv-parser": "^3.2.0",
+    "dotenv": "^16.5.0",
+    "node-fetch": "^2.7.0",
     "stripe": "^18.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
   },
   "devDependencies": {
-    "@types/node": "^22.14.0"
+    "@types/node": "^22.14.0",
+    "@types/node-fetch": "^2.6.12"
   }
 }
