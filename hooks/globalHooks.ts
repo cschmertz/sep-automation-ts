@@ -61,7 +61,7 @@ async function takeScreenshot(page: Page | undefined, scenarioName: string): Pro
 /**
  * CustomWorld class: Represents the test world for each scenario
  */
-class CustomWorld {
+export class CustomWorld {
   browser!: Browser;
   context!: BrowserContext;
   page!: Page;
@@ -70,6 +70,7 @@ class CustomWorld {
   apiClient!: ApiClient;
   apiResponse: any = null;
   apiResponseStatus: number = 0;
+  lastBookingId: number = 0;
   
   // Data for UI test
   cardNumbers: string[] = [];
