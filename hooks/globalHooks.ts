@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 import { getStripeCredentials } from '../utilities/jsonUtils';
 import { ApiClient } from '../utilities/apiClient';
 import { apiConfig } from '../configs/apiConfig';
+import type { Booking } from '../models/booking';
 
 dotenv.config();
 
@@ -71,6 +72,7 @@ export class CustomWorld {
   apiResponse: any = null;
   apiResponseStatus: number = 0;
   lastBookingId: number = 0;
+  bookingPayload!: Booking;
   
   // Data for UI test
   cardNumbers: string[] = [];

@@ -1,299 +1,111 @@
 [
   {
-    "description": "    As an API user\n    I want to manage bookings\n    So that I can create, retrieve, update and delete booking records",
+    "description": "    As a user, I want to be informed when my card info has failed. ",
     "elements": [
       {
         "description": "",
-        "id": "booking-api;get-all-booking-ids",
+        "id": "error-message-for-the-invalid-card-number;user-receives-error-message-for-incomplete-card-number",
         "keyword": "Scenario",
-        "line": 11,
-        "name": "Get all booking IDs",
+        "line": 16,
+        "name": "User receives error message for incomplete card number",
         "steps": [
           {
             "keyword": "Before",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 2542726708
+              "duration": 1445479084
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 8,
-            "name": "I am authenticated with the booking API",
+            "line": 11,
+            "name": "user is on the enrollment page",
             "match": {
-              "location": "steps/bookings/commonSteps.ts:7"
+              "location": "steps/getting-started/startAndRefundDates.ts:6"
             },
             "result": {
               "status": "passed",
-              "duration": 235029582
+              "duration": 1321810916
             }
           },
           {
             "arguments": [],
-            "keyword": "When ",
+            "keyword": "And ",
             "line": 12,
-            "name": "I request all booking IDs",
+            "name": "user has completed step one with valid information",
             "match": {
-              "location": "steps/bookings/bookings.ts:21"
+              "location": "steps/payment-plans/clickNextButtonStep2.ts:7"
             },
             "result": {
               "status": "passed",
-              "duration": 36805915
+              "duration": 159810041
             }
           },
           {
             "arguments": [],
-            "keyword": "Then ",
+            "keyword": "And ",
             "line": 13,
-            "name": "the API response status should be 200",
+            "name": "user has completed step two with a valid option",
             "match": {
-              "location": "steps/bookings/bookings.ts:124"
+              "location": "steps/submitting-payments/makePayment.ts:7"
             },
             "result": {
               "status": "passed",
-              "duration": 9147833
+              "duration": 1291027125
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 14,
-            "name": "the response should contain booking IDs",
+            "name": "user is on step three of the enrollment process",
             "match": {
-              "location": "steps/bookings/bookings.ts:128"
+              "location": "steps/submitting-payments/makePayment.ts:11"
             },
             "result": {
               "status": "passed",
-              "duration": 3997500
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 142881124
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 175999
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 83375
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 80083
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 405542
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@api",
-            "line": 1
-          },
-          {
-            "name": "@get-bookings",
-            "line": 10
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "booking-api;create-a-new-booking",
-        "keyword": "Scenario",
-        "line": 17,
-        "name": "Create a new booking",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 2543087875
+              "duration": 2244300750
             }
           },
           {
             "arguments": [],
-            "keyword": "Given ",
-            "line": 8,
-            "name": "I am authenticated with the booking API",
+            "keyword": "When ",
+            "line": 17,
+            "name": "user enters an incomplete card number",
             "match": {
-              "location": "steps/bookings/commonSteps.ts:7"
+              "location": "steps/submitting-payments/errorMessageCardNumber.ts:10"
             },
             "result": {
               "status": "passed",
-              "duration": 233378249
+              "duration": 15551750
             }
           },
           {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "firstname",
-                      "John"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "lastname",
-                      "Doe"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "totalprice",
-                      "100"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "depositpaid",
-                      "true"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "checkin",
-                      "2023-01-01"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "checkout",
-                      "2023-01-05"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "additionalneeds",
-                      "Breakfast"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "When ",
+            "arguments": [],
+            "keyword": "And ",
             "line": 18,
-            "name": "I create a new booking with the following details:",
+            "name": "user clicks outside the card number field",
             "match": {
-              "location": "steps/bookings/bookings.ts:38"
+              "location": "steps/submitting-payments/errorMessageCardNumber.ts:14"
             },
             "result": {
               "status": "passed",
-              "duration": 23659332
+              "duration": 82677165
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 26,
-            "name": "the API response status should be 200",
+            "line": 19,
+            "name": "user should see the credit card field error message \"Your card number is incomplete.\"",
             "match": {
-              "location": "steps/bookings/bookings.ts:124"
+              "location": "steps/submitting-payments/errorMessageCardNumber.ts:18"
             },
             "result": {
               "status": "passed",
-              "duration": 4404792
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 27,
-            "name": "the booking ID should be returned",
-            "match": {
-              "location": "steps/bookings/bookings.ts:134"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1750374
-            }
-          },
-          {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "firstname",
-                      "John"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "lastname",
-                      "Doe"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "totalprice",
-                      "100"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "depositpaid",
-                      "true"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "checkin",
-                      "2023-01-01"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "checkout",
-                      "2023-01-05"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "additionalneeds",
-                      "Breakfast"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "And ",
-            "line": 28,
-            "name": "the booking should have the following details:",
-            "match": {
-              "location": "steps/bookings/bookings.ts:138"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 4428167
+              "duration": 15317291
             }
           },
           {
@@ -301,7 +113,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 159921875
+              "duration": 186574791
             }
           },
           {
@@ -309,7 +121,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 186792
+              "duration": 943542
             }
           },
           {
@@ -317,7 +129,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 132166
+              "duration": 120957
             }
           },
           {
@@ -325,7 +137,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 430333
+              "duration": 81500
             }
           },
           {
@@ -333,251 +145,122 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 376833
+              "duration": 74166
             }
           }
         ],
         "tags": [
           {
-            "name": "@api",
+            "name": "@sep25",
             "line": 1
-          },
-          {
-            "name": "@create-booking",
-            "line": 16
           }
         ],
         "type": "scenario"
       },
       {
         "description": "",
-        "id": "booking-api;update-a-booking",
+        "id": "error-message-for-the-invalid-card-number;user-receives-error-message-for-invalid-card-number",
         "keyword": "Scenario",
-        "line": 60,
-        "name": "Update a booking",
+        "line": 21,
+        "name": "User receives error message for invalid card number",
         "steps": [
           {
             "keyword": "Before",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 699898999
+              "duration": 1434864166
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 8,
-            "name": "I am authenticated with the booking API",
+            "line": 11,
+            "name": "user is on the enrollment page",
             "match": {
-              "location": "steps/bookings/commonSteps.ts:7"
+              "location": "steps/getting-started/startAndRefundDates.ts:6"
             },
             "result": {
               "status": "passed",
-              "duration": 23727917
-            }
-          },
-          {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "firstname",
-                      "Bob"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "lastname",
-                      "Johnson"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "totalprice",
-                      "200"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "depositpaid",
-                      "true"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "checkin",
-                      "2023-03-01"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "checkout",
-                      "2023-03-05"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "additionalneeds",
-                      "Dinner"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "When ",
-            "line": 61,
-            "name": "I create a new booking with the following details:",
-            "match": {
-              "location": "steps/bookings/bookings.ts:38"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 35726000
+              "duration": 1361566334
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 69,
-            "name": "I use the last created booking ID",
+            "line": 12,
+            "name": "user has completed step one with valid information",
             "match": {
-              "location": "steps/bookings/bookings.ts:10"
+              "location": "steps/payment-plans/clickNextButtonStep2.ts:7"
             },
             "result": {
               "status": "passed",
-              "duration": 5323708
+              "duration": 117760916
             }
           },
           {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "firstname",
-                      "Robert"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "lastname",
-                      "Johnson"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "totalprice",
-                      "250"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "depositpaid",
-                      "true"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "checkin",
-                      "2023-03-02"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "checkout",
-                      "2023-03-07"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "additionalneeds",
-                      "Dinner and Breakfast"
-                    ]
-                  }
-                ]
-              }
-            ],
+            "arguments": [],
             "keyword": "And ",
-            "line": 70,
-            "name": "I update booking {int} with the following details:",
+            "line": 13,
+            "name": "user has completed step two with a valid option",
+            "match": {
+              "location": "steps/submitting-payments/makePayment.ts:7"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 1035310208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "user is on step three of the enrollment process",
+            "match": {
+              "location": "steps/submitting-payments/makePayment.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2011007874
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 22,
+            "name": "user enters an invalid card number",
+            "match": {
+              "location": "steps/submitting-payments/errorMessageCardNumber.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 22606541
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 23,
+            "name": "user clicks outside the card number field",
+            "match": {
+              "location": "steps/submitting-payments/errorMessageCardNumber.ts:14"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 184016332
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 78,
-            "name": "the API response status should be 200",
+            "line": 24,
+            "name": "user should see the credit card field error message \"Your card number is invalid.\"",
             "match": {
-              "location": "steps/bookings/bookings.ts:124"
+              "location": "steps/submitting-payments/errorMessageCardNumber.ts:18"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "firstname",
-                      "Robert"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "lastname",
-                      "Johnson"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "totalprice",
-                      "250"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "depositpaid",
-                      "true"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "checkin",
-                      "2023-03-02"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "checkout",
-                      "2023-03-07"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "additionalneeds",
-                      "Dinner and Breakfast"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "And ",
-            "line": 79,
-            "name": "the booking should have the following details:",
-            "match": {
-              "location": "steps/bookings/bookings.ts:138"
-            },
-            "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 34473416
             }
           },
           {
@@ -585,7 +268,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 139187083
+              "duration": 207742083
             }
           },
           {
@@ -593,7 +276,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 215833
+              "duration": 1212541
             }
           },
           {
@@ -601,7 +284,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 92790
+              "duration": 133416
             }
           },
           {
@@ -609,7 +292,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 49708
+              "duration": 79542
             }
           },
           {
@@ -617,724 +300,29 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 36333
+              "duration": 145667
             }
           }
         ],
         "tags": [
           {
-            "name": "@api",
+            "name": "@sep25",
             "line": 1
-          },
-          {
-            "name": "@update-booking",
-            "line": 59
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "booking-api;get-booking-details",
-        "keyword": "Scenario",
-        "line": 38,
-        "name": "Get booking details",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 668825458
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 8,
-            "name": "I am authenticated with the booking API",
-            "match": {
-              "location": "steps/bookings/commonSteps.ts:7"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 29825415
-            }
-          },
-          {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "firstname",
-                      "Jane"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "lastname",
-                      "Smith"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "totalprice",
-                      "150"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "depositpaid",
-                      "false"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "checkin",
-                      "2023-02-01"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "checkout",
-                      "2023-02-05"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "additionalneeds",
-                      "Lunch"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "When ",
-            "line": 39,
-            "name": "I create a new booking with the following details:",
-            "match": {
-              "location": "steps/bookings/bookings.ts:38"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 25655209
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 47,
-            "name": "I use the last created booking ID",
-            "match": {
-              "location": "steps/bookings/bookings.ts:10"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 3804415
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 48,
-            "name": "I request booking details for ID {int}",
-            "result": {
-              "status": "undefined",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 49,
-            "name": "the API response status should be 200",
-            "match": {
-              "location": "steps/bookings/bookings.ts:124"
-            },
-            "result": {
-              "status": "skipped",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "firstname",
-                      "Jane"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "lastname",
-                      "Smith"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "totalprice",
-                      "150"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "depositpaid",
-                      "false"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "checkin",
-                      "2023-02-01"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "checkout",
-                      "2023-02-05"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "additionalneeds",
-                      "Lunch"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "And ",
-            "line": 50,
-            "name": "the booking should have the following details:",
-            "match": {
-              "location": "steps/bookings/bookings.ts:138"
-            },
-            "result": {
-              "status": "skipped",
-              "duration": 0
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 167846832
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 258582
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 419082
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 109916
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 39749
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@api",
-            "line": 1
-          },
-          {
-            "name": "@get-booking",
-            "line": 37
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "booking-api;partially-update-a-booking",
-        "keyword": "Scenario",
-        "line": 89,
-        "name": "Partially update a booking",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 690858958
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 8,
-            "name": "I am authenticated with the booking API",
-            "match": {
-              "location": "steps/bookings/commonSteps.ts:7"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 63864499
-            }
-          },
-          {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "firstname",
-                      "Mary"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "lastname",
-                      "Williams"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "totalprice",
-                      "300"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "depositpaid",
-                      "false"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "checkin",
-                      "2023-04-01"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "checkout",
-                      "2023-04-05"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "additionalneeds",
-                      "WiFi"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "When ",
-            "line": 90,
-            "name": "I create a new booking with the following details:",
-            "match": {
-              "location": "steps/bookings/bookings.ts:38"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 28301042
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 98,
-            "name": "I use the last created booking ID",
-            "match": {
-              "location": "steps/bookings/bookings.ts:10"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 562708
-            }
-          },
-          {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "firstname",
-                      "Maria"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "totalprice",
-                      "350"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "And ",
-            "line": 99,
-            "name": "I partially update booking {int} with the following details:",
-            "result": {
-              "status": "undefined",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 102,
-            "name": "the API response status should be 200",
-            "match": {
-              "location": "steps/bookings/bookings.ts:124"
-            },
-            "result": {
-              "status": "skipped",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "firstname",
-                      "Maria"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "lastname",
-                      "Williams"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "totalprice",
-                      "350"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "depositpaid",
-                      "false"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "checkin",
-                      "2023-04-01"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "checkout",
-                      "2023-04-05"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "additionalneeds",
-                      "WiFi"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "And ",
-            "line": 103,
-            "name": "the booking should have the following details:",
-            "match": {
-              "location": "steps/bookings/bookings.ts:138"
-            },
-            "result": {
-              "status": "skipped",
-              "duration": 0
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 107292707
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 95999
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 47875
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 45000
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 32957
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@api",
-            "line": 1
-          },
-          {
-            "name": "@partial-update",
-            "line": 88
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "booking-api;delete-a-booking",
-        "keyword": "Scenario",
-        "line": 113,
-        "name": "Delete a booking",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 725963084
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 8,
-            "name": "I am authenticated with the booking API",
-            "match": {
-              "location": "steps/bookings/commonSteps.ts:7"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 51896082
-            }
-          },
-          {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "firstname",
-                      "David"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "lastname",
-                      "Brown"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "totalprice",
-                      "400"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "depositpaid",
-                      "true"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "checkin",
-                      "2023-05-01"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "checkout",
-                      "2023-05-05"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "additionalneeds",
-                      "Spa access"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "When ",
-            "line": 114,
-            "name": "I create a new booking with the following details:",
-            "match": {
-              "location": "steps/bookings/bookings.ts:38"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 24570292
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 122,
-            "name": "I use the last created booking ID",
-            "match": {
-              "location": "steps/bookings/bookings.ts:10"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 146499
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 123,
-            "name": "I delete booking {int}",
-            "result": {
-              "status": "undefined",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 124,
-            "name": "the API response status should be 201",
-            "match": {
-              "location": "steps/bookings/bookings.ts:124"
-            },
-            "result": {
-              "status": "skipped",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 125,
-            "name": "I request booking details for ID {int}",
-            "result": {
-              "status": "undefined",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 126,
-            "name": "the API response status should be 404",
-            "match": {
-              "location": "steps/bookings/bookings.ts:124"
-            },
-            "result": {
-              "status": "skipped",
-              "duration": 0
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 112606041
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 115708
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 50541
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 43792
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 40542
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@api",
-            "line": 1
-          },
-          {
-            "name": "@delete-booking",
-            "line": 112
           }
         ],
         "type": "scenario"
       }
     ],
-    "id": "booking-api",
+    "id": "error-message-for-the-invalid-card-number",
     "line": 2,
     "keyword": "Feature",
-    "name": "Booking API",
+    "name": "Error message for the invalid card number",
     "tags": [
       {
-        "name": "@api",
+        "name": "@sep25",
         "line": 1
       }
     ],
-    "uri": "features/bookings/booking.feature"
+    "uri": "features/submitting-payments/ErrorMessageCardNumber.feature"
   }
 ]
