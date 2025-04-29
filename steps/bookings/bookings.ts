@@ -20,6 +20,7 @@ When('I create a new booking with valid details', async function (this: CustomWo
   this.apiResponse = response.data;
   this.apiResponseStatus = response.status;
   this.lastBookingId = response.data.bookingid;
+  console.log('Full API Response:', JSON.stringify(response.data, null, 2));
 });
 
 // Assertion steps

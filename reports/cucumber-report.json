@@ -1,111 +1,72 @@
 [
   {
-    "description": "    As a user, I want to be informed when my card info has failed. ",
+    "description": "    As an API user\n    I want to manage bookings\n    So that I can create, retrieve, update and delete booking records",
     "elements": [
       {
         "description": "",
-        "id": "error-message-for-the-invalid-card-number;user-receives-error-message-for-incomplete-card-number",
+        "id": "booking-api;create-a-new-booking",
         "keyword": "Scenario",
-        "line": 16,
-        "name": "User receives error message for incomplete card number",
+        "line": 17,
+        "name": "Create a new booking",
         "steps": [
           {
             "keyword": "Before",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 1445479084
+              "duration": 2538176249
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 11,
-            "name": "user is on the enrollment page",
+            "line": 8,
+            "name": "I am authenticated with the booking API",
             "match": {
-              "location": "steps/getting-started/startAndRefundDates.ts:6"
+              "location": "steps/bookings/commonSteps.ts:7"
             },
             "result": {
               "status": "passed",
-              "duration": 1321810916
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 12,
-            "name": "user has completed step one with valid information",
-            "match": {
-              "location": "steps/payment-plans/clickNextButtonStep2.ts:7"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 159810041
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 13,
-            "name": "user has completed step two with a valid option",
-            "match": {
-              "location": "steps/submitting-payments/makePayment.ts:7"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1291027125
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 14,
-            "name": "user is on step three of the enrollment process",
-            "match": {
-              "location": "steps/submitting-payments/makePayment.ts:11"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2244300750
+              "duration": 413023666
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 17,
-            "name": "user enters an incomplete card number",
-            "match": {
-              "location": "steps/submitting-payments/errorMessageCardNumber.ts:10"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 15551750
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
             "line": 18,
-            "name": "user clicks outside the card number field",
+            "name": "I create a new booking with valid details",
             "match": {
-              "location": "steps/submitting-payments/errorMessageCardNumber.ts:14"
+              "location": "steps/bookings/bookings.ts:15"
             },
             "result": {
               "status": "passed",
-              "duration": 82677165
+              "duration": 38056042
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 19,
-            "name": "user should see the credit card field error message \"Your card number is incomplete.\"",
+            "name": "the API response status should be 200",
             "match": {
-              "location": "steps/submitting-payments/errorMessageCardNumber.ts:18"
+              "location": "steps/bookings/bookings.ts:27"
             },
             "result": {
               "status": "passed",
-              "duration": 15317291
+              "duration": 6862458
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 20,
+            "name": "the booking data should be returned",
+            "match": {
+              "location": "steps/bookings/bookings.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 8370291
             }
           },
           {
@@ -113,7 +74,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 186574791
+              "duration": 157562791
             }
           },
           {
@@ -121,7 +82,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 943542
+              "duration": 683624
             }
           },
           {
@@ -129,7 +90,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 120957
+              "duration": 178791
             }
           },
           {
@@ -137,7 +98,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 81500
+              "duration": 120750
             }
           },
           {
@@ -145,184 +106,33 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 74166
+              "duration": 1311250
             }
           }
         ],
         "tags": [
           {
-            "name": "@sep25",
+            "name": "@api",
             "line": 1
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "error-message-for-the-invalid-card-number;user-receives-error-message-for-invalid-card-number",
-        "keyword": "Scenario",
-        "line": 21,
-        "name": "User receives error message for invalid card number",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 1434864166
-            }
           },
           {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 11,
-            "name": "user is on the enrollment page",
-            "match": {
-              "location": "steps/getting-started/startAndRefundDates.ts:6"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1361566334
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 12,
-            "name": "user has completed step one with valid information",
-            "match": {
-              "location": "steps/payment-plans/clickNextButtonStep2.ts:7"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 117760916
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 13,
-            "name": "user has completed step two with a valid option",
-            "match": {
-              "location": "steps/submitting-payments/makePayment.ts:7"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1035310208
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 14,
-            "name": "user is on step three of the enrollment process",
-            "match": {
-              "location": "steps/submitting-payments/makePayment.ts:11"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2011007874
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 22,
-            "name": "user enters an invalid card number",
-            "match": {
-              "location": "steps/submitting-payments/errorMessageCardNumber.ts:6"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 22606541
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 23,
-            "name": "user clicks outside the card number field",
-            "match": {
-              "location": "steps/submitting-payments/errorMessageCardNumber.ts:14"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 184016332
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 24,
-            "name": "user should see the credit card field error message \"Your card number is invalid.\"",
-            "match": {
-              "location": "steps/submitting-payments/errorMessageCardNumber.ts:18"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 34473416
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 207742083
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 1212541
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 133416
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 79542
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 145667
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@sep25",
-            "line": 1
+            "name": "@create-booking",
+            "line": 16
           }
         ],
         "type": "scenario"
       }
     ],
-    "id": "error-message-for-the-invalid-card-number",
+    "id": "booking-api",
     "line": 2,
     "keyword": "Feature",
-    "name": "Error message for the invalid card number",
+    "name": "Booking API",
     "tags": [
       {
-        "name": "@sep25",
+        "name": "@api",
         "line": 1
       }
     ],
-    "uri": "features/submitting-payments/ErrorMessageCardNumber.feature"
+    "uri": "features/bookings/booking.feature"
   }
 ]
