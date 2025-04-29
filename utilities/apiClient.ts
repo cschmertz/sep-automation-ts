@@ -1,14 +1,14 @@
 import { request } from '@playwright/test';
 
-export interface RequestOptions {
-  headers?: Record<string, string>;
-  timeout?: number;
-}
-
 export interface ApiResponse<T = any> {
   status: number;
   data: T;
   headers: Record<string, string>;
+}
+
+export interface RequestOptions {
+  headers?: Record<string, string>;
+  timeout?: number;
 }
 
 export class ApiClient {
