@@ -1,72 +1,59 @@
 [
   {
-    "description": "    As an API user\n    I want to manage bookings\n    So that I can create, retrieve, update and delete booking records",
+    "description": "    As a customer, I should be able to see the product information.",
     "elements": [
       {
         "description": "",
-        "id": "booking-api;create-a-new-booking",
+        "id": "display-the-product-information;verify-product-name-is-displayed-and-matches-across-sections",
         "keyword": "Scenario",
-        "line": 17,
-        "name": "Create a new booking",
+        "line": 16,
+        "name": "Verify product name is displayed and matches across sections",
         "steps": [
           {
             "keyword": "Before",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 2538176249
+              "duration": 1297594165
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 8,
-            "name": "I am authenticated with the booking API",
+            "line": 14,
+            "name": "user is on the enrollment page",
             "match": {
-              "location": "steps/bookings/commonSteps.ts:7"
+              "location": "steps/getting-started/startAndRefundDates.ts:6"
             },
             "result": {
               "status": "passed",
-              "duration": 413023666
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 18,
-            "name": "I create a new booking with valid details",
-            "match": {
-              "location": "steps/bookings/bookings.ts:15"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 38056042
+              "duration": 1194160750
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 19,
-            "name": "the API response status should be 200",
+            "line": 17,
+            "name": "the product name \"Test Automation with Selenium\" should be displayed on the information card",
             "match": {
-              "location": "steps/bookings/bookings.ts:27"
+              "location": "steps/getting-started/displayProductInfo.ts:6"
             },
             "result": {
               "status": "passed",
-              "duration": 6862458
+              "duration": 41882041
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 20,
-            "name": "the booking data should be returned",
+            "line": 18,
+            "name": "the product name on the information card should match \"Test Automation with Selenium\" on the left side",
             "match": {
-              "location": "steps/bookings/bookings.ts:31"
+              "location": "steps/getting-started/displayProductInfo.ts:13"
             },
             "result": {
               "status": "passed",
-              "duration": 8370291
+              "duration": 13556207
             }
           },
           {
@@ -74,7 +61,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 157562791
+              "duration": 116807332
             }
           },
           {
@@ -82,7 +69,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 683624
+              "duration": 166457
             }
           },
           {
@@ -90,7 +77,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 178791
+              "duration": 85415
             }
           },
           {
@@ -98,7 +85,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 120750
+              "duration": 70874
             }
           },
           {
@@ -106,33 +93,402 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 1311250
+              "duration": 344791
             }
           }
         ],
         "tags": [
           {
-            "name": "@api",
+            "name": "@sep09",
             "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "display-the-product-information;verify-product-price-is-displayed",
+        "keyword": "Scenario",
+        "line": 20,
+        "name": "Verify product price is displayed",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1202589291
+            }
           },
           {
-            "name": "@create-booking",
-            "line": 16
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 14,
+            "name": "user is on the enrollment page",
+            "match": {
+              "location": "steps/getting-started/startAndRefundDates.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1479863583
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 21,
+            "name": "the product price \"$400\" should be displayed",
+            "match": {
+              "location": "steps/getting-started/displayProductInfo.ts:20"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 30816124
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 124857125
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 261624
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 129917
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 99959
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 97583
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@sep09",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "display-the-product-information;verify-flexible-payment-plan-text",
+        "keyword": "Scenario",
+        "line": 23,
+        "name": "Verify flexible payment plan text",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 647048749
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 14,
+            "name": "user is on the enrollment page",
+            "match": {
+              "location": "steps/getting-started/startAndRefundDates.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1149717042
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 24,
+            "name": "the text \"Flexible payments plan available\" should be visible",
+            "match": {
+              "location": "steps/getting-started/displayProductInfo.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 22379041
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 113700291
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 82458
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 59083
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 49374
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 48375
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@sep09",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "display-the-product-information;verify-program-start-date-is-displayed",
+        "keyword": "Scenario",
+        "line": 26,
+        "name": "Verify program start date is displayed",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 725833249
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 14,
+            "name": "user is on the enrollment page",
+            "match": {
+              "location": "steps/getting-started/startAndRefundDates.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1119824624
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 27,
+            "name": "the program start date \"Apr 10, 2025\" should be displayed",
+            "match": {
+              "location": "steps/getting-started/displayProductInfo.ts:32"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 23674457
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 212300916
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 114250
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 152708
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 92209
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 46750
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@sep09",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "display-the-product-information;verify-refund-policy-and-final-return-date",
+        "keyword": "Scenario",
+        "line": 29,
+        "name": "Verify refund policy and final return date",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 605721584
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 14,
+            "name": "user is on the enrollment page",
+            "match": {
+              "location": "steps/getting-started/startAndRefundDates.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3341736708
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 30,
+            "name": "the refund policy text \"100% refund policy until\" should be visible",
+            "match": {
+              "location": "steps/getting-started/displayProductInfo.ts:39"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 21735291
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 31,
+            "name": "the final refund date \"May 10, 2025\" should be displayed",
+            "match": {
+              "location": "steps/getting-started/displayProductInfo.ts:46"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 6067999
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 136383583
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 79666
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 37833
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 28374
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 24541
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@sep09",
+            "line": 1
           }
         ],
         "type": "scenario"
       }
     ],
-    "id": "booking-api",
+    "id": "display-the-product-information",
     "line": 2,
     "keyword": "Feature",
-    "name": "Booking API",
+    "name": "Display the product information",
     "tags": [
       {
-        "name": "@api",
+        "name": "@sep09",
         "line": 1
       }
     ],
-    "uri": "features/bookings/booking.feature"
+    "uri": "features/getting-started/DisplayProductInfo.feature"
   }
 ]
