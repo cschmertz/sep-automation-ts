@@ -20,8 +20,8 @@ pipeline {
     }
 
     tools {
-        nodejs 'node-23' // Ensure 'node-18' is configured under Jenkins → Global Tool Configuration
-    }
+        nodejs 'node-21'
+    }v
 
     stages {
         stage('Checkout') {
