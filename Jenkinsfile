@@ -20,7 +20,7 @@ pipeline {
     }
 
     tools {
-        nodejs 'node-18' // Ensure 'node-18' is configured under Jenkins → Global Tool Configuration
+        nodejs 'node-23' // Ensure 'node-18' is configured under Jenkins → Global Tool Configuration
     }
 
     stages {
