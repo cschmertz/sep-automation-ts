@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx cucumber-js",
-    "test:tag": "npx cucumber-js --tags @sep09",
+    "test:tag": "npx cucumber-js --tags @sep11",
     "test:smoke": "npx cucumber-js --tags @smoke",
     "test:api": "cross-env TEST_TYPE=api npx cucumber-js --tags @api",
     "test:ui": "cross-env TEST_TYPE=ui npx cucumber-js --tags @ui",
@@ -22,11 +22,12 @@
     "cross-env": "^7.0.3",
     "csv-parser": "^3.2.0",
     "dotenv": "^16.5.0",
-    "stripe": "^18.0.0",
-    "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
   },
   "devDependencies": {
-    "@types/node": "^22.14.0"
+    "@prisma/client": "^6.8.2",
+    "@types/node": "^22.14.0",
+    "prisma": "^6.8.2",
+    "ts-node": "^10.9.2"
   }
 }

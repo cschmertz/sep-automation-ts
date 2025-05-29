@@ -5,23 +5,18 @@ pipeline {
         DOTENV = credentials('env-secret')
     }
 
-    parameters {
-        string(
-            name: 'TEST_TAG',
-            defaultValue: '',
-            description: 'Optional Cucumber tag to run (e.g., @smoke, @critical). Leave blank for full regression.'
-        )
-    }
-
     triggers {
-        // Nightly run at midnight (adjust as needed)
-        cron('H 0 * * *')
-        // You can create a separate job with: cron('H 7 * * *') for smoke tests
+        // GitHub webhook should be configured in your repo settings
+        // Example: GitHub -> Settings -> Webhooks -> http://your-jenkins-url/github-webhook/
+        
+        // Scheduled runs
+        cron('H 22 * * *')
+        cron('H 6 * * *') 
     }
 
     tools {
         nodejs 'node-21'
-    }v
+    }
 
     stages {
         stage('Checkout') {
@@ -45,14 +40,48 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
+        stage('Smoke Tests') {
+            when {
+                anyOf {
+                    triggeredBy cause: 'TimerTrigger'
+                    expression { 
+                        return new Date().format('H', TimeZone.getTimeZone('UTC')) == '6'
+                    }
+                }
+            }
             steps {
                 script {
-                    def testCommand = 'npm run test'
-                    if (params.TEST_TAG?.trim()) {
-                        testCommand = "npx cucumber-js --tags '${params.TEST_TAG}'"
+                    def tags = '@smoke'
+                    sh "./gradlew clean test -Dcucumber.filter.tags='${tags}'"
+                }
+            }
+        }
+
+        stage('Regression Tests') {
+            when {
+                anyOf {
+                    triggeredBy cause: 'TimerTrigger'
+                    expression { 
+                        return new Date().format('H', TimeZone.getTimeZone('UTC')) == '22'
                     }
-                    sh testCommand
+                }
+            }
+            steps {
+                script {
+                    def tags = '@regression'
+                    sh "./gradlew clean test -Dcucumber.filter.tags='${tags}'"
+                }
+            }
+        }
+
+        stage('Run Tests on Commit/PR') {
+            when {
+                not { triggeredBy cause: 'TimerTrigger' }
+            }
+            steps {
+                script {
+                    def tags = '@smoke'
+                    sh "./gradlew clean test -Dcucumber.filter.tags='${tags}'"
                 }
             }
         }
@@ -60,7 +89,31 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: 'reports/**/*.html', allowEmptyArchive: true
+            script {
+                def reportPath = 'build/reports/cucumber-html-report/index.html'
+                if (fileExists(reportPath)) {
+                    publishHTML([
+                        reportDir: 'build/reports/cucumber-html-report',
+                        reportFiles: 'index.html',
+                        reportName: 'Cucumber Report',
+                        keepAll: true,
+                        alwaysLinkToLastBuild: true
+                    ])
+                } else {
+                    echo "Cucumber HTML report not found — skipping report publishing."
+                }
+            }
+
+            // Slack notification (requires Slack plugin and configured credentials)
+            slackSend (
+                color: currentBuild.currentResult == 'SUCCESS' ? 'good' : 'danger',
+                message: "Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' finished with status: ${currentBuild.currentResult} - ${env.BUILD_URL}"
+            )
+
+            // Email notification (replace with your actual team email)
+            mail to: 'your-team@example.com',
+                 subject: "Jenkins Job '${env.JOB_NAME}' - ${currentBuild.currentResult}",
+                 body: "Check build here: ${env.BUILD_URL}"
         }
     }
 }

@@ -1,48 +1,47 @@
-import { Before, After, setWorldConstructor, setDefaultTimeout, Status } from "@cucumber/cucumber";
-import { Browser, BrowserContext, chromium, firefox, Page, webkit } from "@playwright/test";
+import {
+  Before,
+  After,
+  setWorldConstructor,
+  setDefaultTimeout,
+  Status,
+} from "@cucumber/cucumber";
+import {
+  Browser,
+  BrowserContext,
+  chromium,
+  firefox,
+  Page,
+  webkit,
+} from "@playwright/test";
 import { initElements } from "../globalPagesSetup";
 import fs from "fs";
 import path from "path";
-import dotenv from 'dotenv';
-import { getStripeCredentials } from '../utilities/jsonUtils';
-import { ApiClient } from '../utilities/apiClient';
-import { apiConfig } from '../configs/apiConfig';
-import type { Booking } from '../models/booking';
+import dotenv from "dotenv";
+import { getStripeCredentials } from "../utilities/jsonUtils";
+import { ApiClient } from "../utilities/apiClient";
+import { apiConfig } from "../configs/apiConfig";
+import type { Booking } from "../models/booking";
+import prisma from "../utilities/dbClient";
 
 dotenv.config();
 
-/**
- * Configuration constants
- */
 const BROWSER_TYPE: string = "chrome";
 const HEADLESS_MODE: boolean = false;
 const MAXIMIZED_WINDOW: boolean = true;
-const SLOW_MOTION_DELAY: number = 0; // slow mode in milliseconds
-const DEFAULT_TIMEOUT: number = 30000; // default timeout in milliseconds
+const SLOW_MOTION_DELAY: number = 0;
+const DEFAULT_TIMEOUT: number = 30000;
 
-/**
- * Before hook: Initializes the test environment before each scenario
- */
 Before(async function (this: CustomWorld) {
   await this.init();
 });
 
-/**
- * After hook: Cleans up the test environment after each scenario
- * Takes a screenshot if the scenario failed
- */
 After(async function (this: CustomWorld, scenario) {
   if (scenario.result?.status === Status.FAILED) {
     await takeScreenshot(this.page, scenario.pickle.name);
   }
-  await this.close();
+  await this.cleanup();
 });
 
-/**
- * Takes a screenshot of the current page
- * @param page - The Playwright Page object
- * @param scenarioName - The name of the scenario
- */
 async function takeScreenshot(page: Page | undefined, scenarioName: string): Promise<void> {
   if (!page) {
     console.warn("Page object not available, skipping screenshot");
@@ -59,28 +58,22 @@ async function takeScreenshot(page: Page | undefined, scenarioName: string): Pro
   await page.screenshot({ path: filePath, fullPage: true });
 }
 
-/**
- * CustomWorld class: Represents the test world for each scenario
- */
 export class CustomWorld {
   browser!: Browser;
   context!: BrowserContext;
   page!: Page;
 
-  // API testing properties
   apiClient!: ApiClient;
   apiResponse: any = null;
   apiResponseStatus: number = 0;
   lastBookingId: number = 0;
   bookingPayload!: Booking;
-  
-  // Data for UI test
+
   cardNumbers: string[] = [];
   countries: string[] = [];
 
-  /**
-   * Initializes the browser based on the configured browser type
-   */
+  db = prisma;
+
   async initializeBrowser(): Promise<Browser> {
     const launchOptions = {
       headless: HEADLESS_MODE,
@@ -92,17 +85,10 @@ export class CustomWorld {
     return await (browserType === "firefox" ? firefox : browserType === "webkit" || browserType === "safari" ? webkit : chromium).launch(launchOptions);
   }
 
-  /**
-   * Initializes the test environment
-   */
   async init(): Promise<void> {
-    // Initialize API client
-    this.apiClient = new ApiClient(apiConfig.baseUrl, {
-      timeout: apiConfig.timeout,
-    });
-    
-    // Only initialize browser for UI tests
-    if (process.env.TEST_TYPE !== 'api') {
+    this.apiClient = new ApiClient(apiConfig.baseUrl, { timeout: apiConfig.timeout });
+
+    if (process.env.TEST_TYPE !== "api") {
       this.browser = await this.initializeBrowser();
       this.context = await this.browser.newContext(MAXIMIZED_WINDOW ? { viewport: null } : {});
       this.page = await this.context.newPage();
@@ -114,51 +100,47 @@ export class CustomWorld {
         })));
       }
 
-      // Load and store Stripe credentials from JSON
       const jsonPath = process.env.STRIPE_CREDENTIALS;
       if (!jsonPath) throw new Error("STRIPE_CREDENTIALS path not set in .env");
 
       const { card_numbers, countries } = getStripeCredentials(jsonPath);
-      this.cardNumbers = card_numbers.map(n => n.toString()); // Ensure numbers are strings
+      this.cardNumbers = card_numbers.map((n) => n.toString());
       this.countries = countries;
 
       initElements(this.page);
     }
   }
 
-  /**
-   * Closes the browser and page
-   */
-  async close(): Promise<void> {
+  async cleanup(): Promise<void> {
     if (this.page || this.browser) {
       await Promise.all([
-        this.page?.close().catch(err => console.warn('Error closing page:', err)),
-        this.browser?.close().catch(err => console.warn('Error closing browser:', err))
+        this.page?.close().catch((err) => console.warn("Error closing page:", err)),
+        this.browser?.close().catch((err) => console.warn("Error closing browser:", err)),
       ]);
+    }
+
+    try {
+      await this.db.$disconnect();
+    } catch (e) {
+      console.warn("Error disconnecting Prisma client:", e);
     }
   }
 
-  /**
-   * Authenticates with the API and gets a token
-   */
   async authenticateApi(): Promise<string> {
-    const response = await this.apiClient.post('/auth', {
+    const response = await this.apiClient.post("/auth", {
       username: apiConfig.auth.username,
-      password: apiConfig.auth.password
+      password: apiConfig.auth.password,
     });
-    
+
     if (response.status !== 200) {
       throw new Error(`Authentication failed with status ${response.status}`);
     }
-    
+
     const token = response.data.token;
     this.apiClient.setAuthToken(token);
     return token;
   }
 }
 
-// Set the custom world constructor
 setWorldConstructor(CustomWorld);
-
-// Set the default timeout for steps
 setDefaultTimeout(DEFAULT_TIMEOUT);
