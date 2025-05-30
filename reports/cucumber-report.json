@@ -14,7 +14,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 5978379458
+              "duration": 3241985250
             }
           },
           {
@@ -22,7 +22,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 507114583
+              "duration": 383969415
             }
           },
           {
@@ -35,7 +35,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 26432416
+              "duration": 41363375
             }
           },
           {
@@ -47,9 +47,8 @@
               "location": "steps/transmuda-database/companySteps.ts:14"
             },
             "result": {
-              "status": "failed",
-              "duration": 44755415,
-              "error_message": "PrismaClientUnknownRequestError: \nInvalid `prisma.companies.create()` invocation in\n/Users/conorschmertz/Desktop/sep-automation-ts/utilities/prismaTypes.ts:82:29\n\n  79 // Factory functions with explicit type handling\n  80 export const dbFactories = {\n  81   createCompany: async (data: CompanyCreateParams) => {\n→ 82     return prisma.companies.create(\nError occurred during query execution:\nConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(PostgresError { code: \"23514\", message: \"new row for relation \\\"companies\\\" violates check constraint \\\"companies_subscription_plan_check\\\"\", severity: \"ERROR\", detail: Some(\"Failing row contains (7, Acme Corp, 123 Main St, 555-1234, acmecorp@example.com, Test Contact, Premium, 2025-05-30 18:27:47.114, t).\"), column: None, hint: None }), transient: false })\n    at Zn.handleRequestError (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:7649)\n    at Zn.handleAndLogRequestError (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:6784)\n    at Zn.request (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:6491)\n    at async l (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:133:9778)\n    at async CustomWorld.<anonymous> (/Users/conorschmertz/Desktop/sep-automation-ts/steps/transmuda-database/companySteps.ts:16:29)"
+              "status": "passed",
+              "duration": 27320999
             }
           },
           {
@@ -61,8 +60,8 @@
               "location": "steps/transmuda-database/companySteps.ts:22"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 30493415
             }
           },
           {
@@ -70,7 +69,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 447895708
+              "duration": 216414209
             }
           }
         ],
@@ -102,7 +101,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 5928754500
+              "duration": 3083063374
             }
           },
           {
@@ -110,7 +109,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 486818125
+              "duration": 406259541
             }
           },
           {
@@ -122,9 +121,8 @@
               "location": "steps/transmuda-database/companySteps.ts:33"
             },
             "result": {
-              "status": "failed",
-              "duration": 87142708,
-              "error_message": "PrismaClientUnknownRequestError: \nInvalid `prisma.companies.create()` invocation in\n/Users/conorschmertz/Desktop/sep-automation-ts/utilities/prismaTypes.ts:82:29\n\n  79 // Factory functions with explicit type handling\n  80 export const dbFactories = {\n  81   createCompany: async (data: CompanyCreateParams) => {\n→ 82     return prisma.companies.create(\nError occurred during query execution:\nConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(PostgresError { code: \"23514\", message: \"new row for relation \\\"companies\\\" violates check constraint \\\"companies_subscription_plan_check\\\"\", severity: \"ERROR\", detail: Some(\"Failing row contains (6, Beta Inc, 123 Main St, 555-1234, betainc@example.com, Test Contact, Premium, 2025-05-30 18:27:47.105, t).\"), column: None, hint: None }), transient: false })\n    at Zn.handleRequestError (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:7649)\n    at Zn.handleAndLogRequestError (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:6784)\n    at Zn.request (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:6491)\n    at async l (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:133:9778)\n    at async CustomWorld.<anonymous> (/Users/conorschmertz/Desktop/sep-automation-ts/steps/transmuda-database/companySteps.ts:35:29)"
+              "status": "passed",
+              "duration": 80971208
             }
           },
           {
@@ -136,8 +134,8 @@
               "location": "steps/transmuda-database/companySteps.ts:42"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 37164666
             }
           },
           {
@@ -149,8 +147,8 @@
               "location": "steps/transmuda-database/companySteps.ts:51"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 21266666
             }
           },
           {
@@ -158,7 +156,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 447644915
+              "duration": 306178291
             }
           }
         ],
@@ -190,7 +188,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 5797713125
+              "duration": 3080090708
             }
           },
           {
@@ -198,7 +196,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 487733207
+              "duration": 364938250
             }
           },
           {
@@ -210,9 +208,8 @@
               "location": "steps/transmuda-database/companySteps.ts:33"
             },
             "result": {
-              "status": "failed",
-              "duration": 65313417,
-              "error_message": "PrismaClientUnknownRequestError: \nInvalid `prisma.companies.create()` invocation in\n/Users/conorschmertz/Desktop/sep-automation-ts/utilities/prismaTypes.ts:82:29\n\n  79 // Factory functions with explicit type handling\n  80 export const dbFactories = {\n  81   createCompany: async (data: CompanyCreateParams) => {\n→ 82     return prisma.companies.create(\nError occurred during query execution:\nConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(PostgresError { code: \"23514\", message: \"new row for relation \\\"companies\\\" violates check constraint \\\"companies_subscription_plan_check\\\"\", severity: \"ERROR\", detail: Some(\"Failing row contains (8, Gamma LLC, 123 Main St, 555-1234, gammallc@example.com, Test Contact, Premium, 2025-05-30 18:27:47.128, t).\"), column: None, hint: None }), transient: false })\n    at Zn.handleRequestError (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:7649)\n    at Zn.handleAndLogRequestError (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:6784)\n    at Zn.request (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:6491)\n    at async l (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:133:9778)\n    at async CustomWorld.<anonymous> (/Users/conorschmertz/Desktop/sep-automation-ts/steps/transmuda-database/companySteps.ts:35:29)"
+              "status": "passed",
+              "duration": 87702541
             }
           },
           {
@@ -224,8 +221,8 @@
               "location": "steps/transmuda-database/companySteps.ts:61"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 20868333
             }
           },
           {
@@ -237,8 +234,8 @@
               "location": "steps/transmuda-database/companySteps.ts:69"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 22359124
             }
           },
           {
@@ -246,7 +243,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 446273332
+              "duration": 214891791
             }
           }
         ],
@@ -302,7 +299,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 5618453582
+              "duration": 2909819749
             }
           },
           {
@@ -310,7 +307,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 515416666
+              "duration": 364908792
             }
           },
           {
@@ -322,9 +319,8 @@
               "location": "steps/transmuda-database/integritySteps.ts:5"
             },
             "result": {
-              "status": "failed",
-              "duration": 56187667,
-              "error_message": "PrismaClientUnknownRequestError: \nInvalid `prisma.companies.create()` invocation in\n/Users/conorschmertz/Desktop/sep-automation-ts/utilities/prismaTypes.ts:82:29\n\n  79 // Factory functions with explicit type handling\n  80 export const dbFactories = {\n  81   createCompany: async (data: CompanyCreateParams) => {\n→ 82     return prisma.companies.create(\nError occurred during query execution:\nConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(PostgresError { code: \"23514\", message: \"new row for relation \\\"companies\\\" violates check constraint \\\"companies_subscription_plan_check\\\"\", severity: \"ERROR\", detail: Some(\"Failing row contains (9, Unique Corp, 123 Main St, 555-1234, uniquecorp@example.com, Test Contact, Premium, 2025-05-30 18:27:47.132, t).\"), column: None, hint: None }), transient: false })\n    at Zn.handleRequestError (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:7649)\n    at Zn.handleAndLogRequestError (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:6784)\n    at Zn.request (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:6491)\n    at async l (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:133:9778)\n    at async CustomWorld.<anonymous> (/Users/conorschmertz/Desktop/sep-automation-ts/steps/transmuda-database/integritySteps.ts:7:5)"
+              "status": "passed",
+              "duration": 88801999
             }
           },
           {
@@ -336,8 +332,8 @@
               "location": "steps/transmuda-database/integritySteps.ts:14"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 21094875
             }
           },
           {
@@ -346,11 +342,12 @@
             "line": 10,
             "name": "the operation should fail with a unique constraint error",
             "match": {
-              "location": "steps/transmuda-database/integritySteps.ts:63"
+              "location": "steps/transmuda-database/integritySteps.ts:70"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "failed",
+              "duration": 16824332,
+              "error_message": "AssertionError [ERR_ASSERTION]: Expected an error but none occurred\n    at CustomWorld.<anonymous> (/Users/conorschmertz/Desktop/sep-automation-ts/steps/transmuda-database/integritySteps.ts:73:12)"
             }
           },
           {
@@ -358,7 +355,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 447664957
+              "duration": 458548917
             }
           }
         ],
@@ -386,7 +383,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 1046607374
+              "duration": 583558167
             }
           },
           {
@@ -394,7 +391,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 90207875
+              "duration": 98798957
             }
           },
           {
@@ -406,9 +403,8 @@
               "location": "steps/transmuda-database/integritySteps.ts:28"
             },
             "result": {
-              "status": "failed",
-              "duration": 7622750,
-              "error_message": "PrismaClientUnknownRequestError: \nInvalid `prisma.companies.create()` invocation in\n/Users/conorschmertz/Desktop/sep-automation-ts/utilities/prismaTypes.ts:82:29\n\n  79 // Factory functions with explicit type handling\n  80 export const dbFactories = {\n  81   createCompany: async (data: CompanyCreateParams) => {\n→ 82     return prisma.companies.create(\nError occurred during query execution:\nConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(PostgresError { code: \"23514\", message: \"new row for relation \\\"companies\\\" violates check constraint \\\"companies_subscription_plan_check\\\"\", severity: \"ERROR\", detail: Some(\"Failing row contains (10, Driver Company, 123 Main St, 555-1234, drivers@example.com, Test Contact, Premium, 2025-05-30 18:27:48.752, t).\"), column: None, hint: None }), transient: false })\n    at Zn.handleRequestError (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:7649)\n    at Zn.handleAndLogRequestError (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:6784)\n    at Zn.request (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:6491)\n    at async l (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:133:9778)\n    at async CustomWorld.<anonymous> (/Users/conorschmertz/Desktop/sep-automation-ts/steps/transmuda-database/integritySteps.ts:30:21)"
+              "status": "passed",
+              "duration": 16645875
             }
           },
           {
@@ -420,8 +416,8 @@
               "location": "steps/transmuda-database/integritySteps.ts:44"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 17024708
             }
           },
           {
@@ -430,11 +426,11 @@
             "line": 15,
             "name": "the operation should fail with a unique constraint error",
             "match": {
-              "location": "steps/transmuda-database/integritySteps.ts:63"
+              "location": "steps/transmuda-database/integritySteps.ts:70"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 752000
             }
           },
           {
@@ -442,7 +438,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 182074375
+              "duration": 93900333
             }
           }
         ],

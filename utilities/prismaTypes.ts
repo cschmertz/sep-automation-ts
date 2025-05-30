@@ -11,7 +11,7 @@ const companyDefaults: Partial<Prisma.companiesUncheckedCreateInput> = {
   address: '123 Main St',
   phone: '555-1234',
   contact_person: 'Test Contact',
-  subscription_plan: 'Premium',
+  subscription_plan: 'Basic',
   is_active: true,
 };
 
@@ -82,7 +82,8 @@ export const dbFactories = {
     return prisma.companies.create({
       data: {
         ...companyDefaults,
-        ...data
+        ...data,
+        subscription_plan: data.subscription_plan || 'Basic' // Ensure valid value
       }
     });
   },

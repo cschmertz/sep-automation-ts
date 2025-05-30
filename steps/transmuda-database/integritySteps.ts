@@ -43,12 +43,19 @@ Given('a driver exists with license number {string}',
 
 When('I try to create another driver with license number {string}', 
   async function (this: CustomWorld, licenseNumber: string) {
+    // Find any existing company
     const company = await this.db.companies.findFirst();
-    if (!company) throw new Error("No company exists");
+    if (!company) {
+      // Create a company if none exists
+      this.testData.company = await this.dbUtils.dbFactories.createCompany({
+        company_name: "Test Company",
+        email: "test@example.com"
+      });
+    }
     
     try {
       await this.dbUtils.dbFactories.createDriver({
-        company_id: company.company_id,
+        company_id: company ? company.company_id : this.testData.company.company_id,
         first_name: "Second",
         last_name: "Driver",
         license_number: licenseNumber
@@ -62,19 +69,34 @@ When('I try to create another driver with license number {string}',
 
 Then('the operation should fail with a unique constraint error', 
   function (this: CustomWorld) {
+    // Check if error exists
     assert.ok(this.testData.error, "Expected an error but none occurred");
-    assert.match(
-      this.testData.error.message, 
-      /unique constraint|duplicate key/,
-      `Error message doesn't indicate unique constraint: ${this.testData.error.message}`
-    );
     
-    // Verify Prisma error code
+    // Check for unique constraint error code (Prisma P2002)
     if (this.testData.error.code) {
       assert.strictEqual(
         this.testData.error.code,
         "P2002",
         `Expected P2002 unique constraint error but got ${this.testData.error.code}`
+      );
+    }
+    // Check for unique constraint message patterns
+    else {
+      const errorMessage = this.testData.error.message.toLowerCase();
+      const expectedPatterns = [
+        "unique constraint",
+        "duplicate key",
+        "already exists",
+        "unique constraint failed"
+      ];
+      
+      const found = expectedPatterns.some(pattern => 
+        errorMessage.includes(pattern)
+      );
+      
+      assert.ok(
+        found,
+        `Error message doesn't indicate unique constraint: ${this.testData.error.message}`
       );
     }
   }
