@@ -1,59 +1,68 @@
 [
   {
-    "description": "    As a customer, I want to see the program start dates and refund policy details before enrolling \n    so that I can make informed decisions.",
+    "description": "    As a system administrator\n    I want to manage company records\n    So that I can maintain accurate company information",
     "elements": [
       {
         "description": "",
-        "id": "program-start-dates-and-refund-dates;verify-that-the-program-start-date-and-refund-date-are-displayed",
+        "id": "company-crud-operations;create-and-read-a-company",
         "keyword": "Scenario",
-        "line": 13,
-        "name": "Verify that the program start date and refund date are displayed",
+        "line": 7,
+        "name": "Create and read a company",
         "steps": [
           {
             "keyword": "Before",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 4116245333
+              "duration": 5978379458
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 507114583
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
+            "line": 8,
+            "name": "I have a new company named \"Acme Corp\"",
+            "match": {
+              "location": "steps/transmuda-database/companySteps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 26432416
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 9,
+            "name": "I create the company in the database",
+            "match": {
+              "location": "steps/transmuda-database/companySteps.ts:14"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 44755415,
+              "error_message": "PrismaClientUnknownRequestError: \nInvalid `prisma.companies.create()` invocation in\n/Users/conorschmertz/Desktop/sep-automation-ts/utilities/prismaTypes.ts:82:29\n\n  79 // Factory functions with explicit type handling\n  80 export const dbFactories = {\n  81   createCompany: async (data: CompanyCreateParams) => {\n→ 82     return prisma.companies.create(\nError occurred during query execution:\nConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(PostgresError { code: \"23514\", message: \"new row for relation \\\"companies\\\" violates check constraint \\\"companies_subscription_plan_check\\\"\", severity: \"ERROR\", detail: Some(\"Failing row contains (7, Acme Corp, 123 Main St, 555-1234, acmecorp@example.com, Test Contact, Premium, 2025-05-30 18:27:47.114, t).\"), column: None, hint: None }), transient: false })\n    at Zn.handleRequestError (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:7649)\n    at Zn.handleAndLogRequestError (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:6784)\n    at Zn.request (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:6491)\n    at async l (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:133:9778)\n    at async CustomWorld.<anonymous> (/Users/conorschmertz/Desktop/sep-automation-ts/steps/transmuda-database/companySteps.ts:16:29)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
             "line": 10,
-            "name": "user is on the enrollment page",
+            "name": "the company should exist with name \"Acme Corp\"",
             "match": {
-              "location": "steps/getting-started/startAndRefundDates.ts:6"
+              "location": "steps/transmuda-database/companySteps.ts:22"
             },
             "result": {
-              "status": "passed",
-              "duration": 1589521958
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 14,
-            "name": "the program start date is displayed",
-            "match": {
-              "location": "steps/getting-started/startAndRefundDates.ts:10"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 50667792
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 15,
-            "name": "the program refund date is displayed",
-            "match": {
-              "location": "steps/getting-started/startAndRefundDates.ts:14"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 6643541
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -61,74 +70,87 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 154805707
+              "duration": 447895708
             }
           }
         ],
         "tags": [
           {
-            "name": "@sep11",
+            "name": "@db",
             "line": 1
           },
           {
-            "name": "@sep11-1",
-            "line": 12
+            "name": "@functional",
+            "line": 1
+          },
+          {
+            "name": "@crud",
+            "line": 1
           }
         ],
         "type": "scenario"
       },
       {
         "description": "",
-        "id": "program-start-dates-and-refund-dates;verify-that-the-program-start-date-and-refund-date-are-correct",
+        "id": "company-crud-operations;update-a-company",
         "keyword": "Scenario",
-        "line": 18,
-        "name": "Verify that the program start date and refund date are correct",
+        "line": 12,
+        "name": "Update a company",
         "steps": [
           {
             "keyword": "Before",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 3979174459
+              "duration": 5928754500
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 486818125
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 10,
-            "name": "user is on the enrollment page",
+            "line": 13,
+            "name": "an existing company named \"Beta Inc\"",
             "match": {
-              "location": "steps/getting-started/startAndRefundDates.ts:6"
+              "location": "steps/transmuda-database/companySteps.ts:33"
             },
             "result": {
-              "status": "passed",
-              "duration": 1569744709
+              "status": "failed",
+              "duration": 87142708,
+              "error_message": "PrismaClientUnknownRequestError: \nInvalid `prisma.companies.create()` invocation in\n/Users/conorschmertz/Desktop/sep-automation-ts/utilities/prismaTypes.ts:82:29\n\n  79 // Factory functions with explicit type handling\n  80 export const dbFactories = {\n  81   createCompany: async (data: CompanyCreateParams) => {\n→ 82     return prisma.companies.create(\nError occurred during query execution:\nConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(PostgresError { code: \"23514\", message: \"new row for relation \\\"companies\\\" violates check constraint \\\"companies_subscription_plan_check\\\"\", severity: \"ERROR\", detail: Some(\"Failing row contains (6, Beta Inc, 123 Main St, 555-1234, betainc@example.com, Test Contact, Premium, 2025-05-30 18:27:47.105, t).\"), column: None, hint: None }), transient: false })\n    at Zn.handleRequestError (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:7649)\n    at Zn.handleAndLogRequestError (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:6784)\n    at Zn.request (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:6491)\n    at async l (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:133:9778)\n    at async CustomWorld.<anonymous> (/Users/conorschmertz/Desktop/sep-automation-ts/steps/transmuda-database/companySteps.ts:35:29)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 14,
+            "name": "I update the company email to \"contact@beta.com\"",
+            "match": {
+              "location": "steps/transmuda-database/companySteps.ts:42"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 19,
-            "name": "the displayed start date for the program is correct",
+            "line": 15,
+            "name": "the company should have email \"contact@beta.com\"",
             "match": {
-              "location": "steps/getting-started/startAndRefundDates.ts:18"
+              "location": "steps/transmuda-database/companySteps.ts:51"
             },
             "result": {
-              "status": "passed",
-              "duration": 38285708
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 20,
-            "name": "the displayed refund date for the program is correct",
-            "match": {
-              "location": "steps/getting-started/startAndRefundDates.ts:24"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 7084875
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -136,33 +158,321 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 169751791
+              "duration": 447644915
             }
           }
         ],
         "tags": [
           {
-            "name": "@sep11",
+            "name": "@db",
             "line": 1
           },
           {
-            "name": "@sep11-2",
-            "line": 17
+            "name": "@functional",
+            "line": 1
+          },
+          {
+            "name": "@crud",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "company-crud-operations;delete-a-company",
+        "keyword": "Scenario",
+        "line": 17,
+        "name": "Delete a company",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 5797713125
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 487733207
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 18,
+            "name": "an existing company named \"Gamma LLC\"",
+            "match": {
+              "location": "steps/transmuda-database/companySteps.ts:33"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 65313417,
+              "error_message": "PrismaClientUnknownRequestError: \nInvalid `prisma.companies.create()` invocation in\n/Users/conorschmertz/Desktop/sep-automation-ts/utilities/prismaTypes.ts:82:29\n\n  79 // Factory functions with explicit type handling\n  80 export const dbFactories = {\n  81   createCompany: async (data: CompanyCreateParams) => {\n→ 82     return prisma.companies.create(\nError occurred during query execution:\nConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(PostgresError { code: \"23514\", message: \"new row for relation \\\"companies\\\" violates check constraint \\\"companies_subscription_plan_check\\\"\", severity: \"ERROR\", detail: Some(\"Failing row contains (8, Gamma LLC, 123 Main St, 555-1234, gammallc@example.com, Test Contact, Premium, 2025-05-30 18:27:47.128, t).\"), column: None, hint: None }), transient: false })\n    at Zn.handleRequestError (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:7649)\n    at Zn.handleAndLogRequestError (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:6784)\n    at Zn.request (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:6491)\n    at async l (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:133:9778)\n    at async CustomWorld.<anonymous> (/Users/conorschmertz/Desktop/sep-automation-ts/steps/transmuda-database/companySteps.ts:35:29)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 19,
+            "name": "I delete the company",
+            "match": {
+              "location": "steps/transmuda-database/companySteps.ts:61"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 20,
+            "name": "the company should not exist in the database",
+            "match": {
+              "location": "steps/transmuda-database/companySteps.ts:69"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 446273332
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@db",
+            "line": 1
+          },
+          {
+            "name": "@functional",
+            "line": 1
+          },
+          {
+            "name": "@crud",
+            "line": 1
           }
         ],
         "type": "scenario"
       }
     ],
-    "id": "program-start-dates-and-refund-dates",
+    "id": "company-crud-operations",
     "line": 2,
     "keyword": "Feature",
-    "name": "Program start dates and Refund dates",
+    "name": "Company CRUD Operations",
     "tags": [
       {
-        "name": "@sep11",
+        "name": "@db",
+        "line": 1
+      },
+      {
+        "name": "@functional",
+        "line": 1
+      },
+      {
+        "name": "@crud",
         "line": 1
       }
     ],
-    "uri": "features/ui/getting-started/StartAndRefundDates.feature"
+    "uri": "features/db/transmuda_database/company_crud.feature"
+  },
+  {
+    "description": "    As a database administrator\n    I want to enforce data integrity rules\n    So that the database remains consistent",
+    "elements": [
+      {
+        "description": "",
+        "id": "data-integrity-constraints;prevent-duplicate-company-names",
+        "keyword": "Scenario",
+        "line": 7,
+        "name": "Prevent duplicate company names",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 5618453582
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 515416666
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "a company named \"Unique Corp\" exists",
+            "match": {
+              "location": "steps/transmuda-database/integritySteps.ts:5"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 56187667,
+              "error_message": "PrismaClientUnknownRequestError: \nInvalid `prisma.companies.create()` invocation in\n/Users/conorschmertz/Desktop/sep-automation-ts/utilities/prismaTypes.ts:82:29\n\n  79 // Factory functions with explicit type handling\n  80 export const dbFactories = {\n  81   createCompany: async (data: CompanyCreateParams) => {\n→ 82     return prisma.companies.create(\nError occurred during query execution:\nConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(PostgresError { code: \"23514\", message: \"new row for relation \\\"companies\\\" violates check constraint \\\"companies_subscription_plan_check\\\"\", severity: \"ERROR\", detail: Some(\"Failing row contains (9, Unique Corp, 123 Main St, 555-1234, uniquecorp@example.com, Test Contact, Premium, 2025-05-30 18:27:47.132, t).\"), column: None, hint: None }), transient: false })\n    at Zn.handleRequestError (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:7649)\n    at Zn.handleAndLogRequestError (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:6784)\n    at Zn.request (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:6491)\n    at async l (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:133:9778)\n    at async CustomWorld.<anonymous> (/Users/conorschmertz/Desktop/sep-automation-ts/steps/transmuda-database/integritySteps.ts:7:5)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 9,
+            "name": "I try to create another company named \"Unique Corp\"",
+            "match": {
+              "location": "steps/transmuda-database/integritySteps.ts:14"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 10,
+            "name": "the operation should fail with a unique constraint error",
+            "match": {
+              "location": "steps/transmuda-database/integritySteps.ts:63"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 447664957
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@db",
+            "line": 1
+          },
+          {
+            "name": "@integrity",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "data-integrity-constraints;prevent-duplicate-driver-license-numbers",
+        "keyword": "Scenario",
+        "line": 12,
+        "name": "Prevent duplicate driver license numbers",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1046607374
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 90207875
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "a driver exists with license number \"DL-12345\"",
+            "match": {
+              "location": "steps/transmuda-database/integritySteps.ts:28"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 7622750,
+              "error_message": "PrismaClientUnknownRequestError: \nInvalid `prisma.companies.create()` invocation in\n/Users/conorschmertz/Desktop/sep-automation-ts/utilities/prismaTypes.ts:82:29\n\n  79 // Factory functions with explicit type handling\n  80 export const dbFactories = {\n  81   createCompany: async (data: CompanyCreateParams) => {\n→ 82     return prisma.companies.create(\nError occurred during query execution:\nConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(PostgresError { code: \"23514\", message: \"new row for relation \\\"companies\\\" violates check constraint \\\"companies_subscription_plan_check\\\"\", severity: \"ERROR\", detail: Some(\"Failing row contains (10, Driver Company, 123 Main St, 555-1234, drivers@example.com, Test Contact, Premium, 2025-05-30 18:27:48.752, t).\"), column: None, hint: None }), transient: false })\n    at Zn.handleRequestError (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:7649)\n    at Zn.handleAndLogRequestError (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:6784)\n    at Zn.request (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:124:6491)\n    at async l (/Users/conorschmertz/Desktop/sep-automation-ts/generated/prisma/runtime/library.js:133:9778)\n    at async CustomWorld.<anonymous> (/Users/conorschmertz/Desktop/sep-automation-ts/steps/transmuda-database/integritySteps.ts:30:21)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 14,
+            "name": "I try to create another driver with license number \"DL-12345\"",
+            "match": {
+              "location": "steps/transmuda-database/integritySteps.ts:44"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 15,
+            "name": "the operation should fail with a unique constraint error",
+            "match": {
+              "location": "steps/transmuda-database/integritySteps.ts:63"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 182074375
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@db",
+            "line": 1
+          },
+          {
+            "name": "@integrity",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "data-integrity-constraints",
+    "line": 2,
+    "keyword": "Feature",
+    "name": "Data Integrity Constraints",
+    "tags": [
+      {
+        "name": "@db",
+        "line": 1
+      },
+      {
+        "name": "@integrity",
+        "line": 1
+      }
+    ],
+    "uri": "features/db/transmuda_database/data_integrity.feature"
   }
 ]

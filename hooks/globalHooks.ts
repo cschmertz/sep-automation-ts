@@ -26,6 +26,9 @@ import { resetDatabase, testData } from "../utilities/dbUtils";
 
 dotenv.config();
 
+/**
+ * Configuration constants
+ */
 const BROWSER_TYPE: string = "chrome";
 const HEADLESS_MODE: boolean = false;
 const MAXIMIZED_WINDOW: boolean = true;
@@ -35,8 +38,10 @@ const DEFAULT_TIMEOUT: number = 30000;
 // Global DB connection flag
 let isDbConnected = false;
 
+/**
+ * Before hook: Connects to DB and initializes environment
+ */
 Before(async function (this: CustomWorld) {
-  // Connect to DB if not already connected
   if (!isDbConnected) {
     try {
       await prisma.$connect();
@@ -47,25 +52,32 @@ Before(async function (this: CustomWorld) {
       throw error;
     }
   }
-  
+
   await this.init();
 });
 
+/**
+ * After hook: Cleans up browser and captures screenshot if scenario failed
+ */
 After(async function (this: CustomWorld, scenario) {
   if (scenario.result?.status === Status.FAILED) {
     await takeScreenshot(this.page, scenario.pickle.name);
   }
-  await this.cleanup();
+  await this.close();
 });
 
-// Add database reset hook for scenarios with @db tag
+/**
+ * Tag-specific hook for database reset
+ */
 Before({ tags: "@db" }, async function () {
   await resetDatabase();
   console.log("Database reset complete");
 });
 
-// Global teardown for database
-process.on('beforeExit', async () => {
+/**
+ * Global teardown for database connection
+ */
+process.on("beforeExit", async () => {
   if (isDbConnected) {
     try {
       await prisma.$disconnect();
@@ -76,22 +88,38 @@ process.on('beforeExit', async () => {
   }
 });
 
-async function takeScreenshot(page: Page | undefined, scenarioName: string): Promise<void> {
+/**
+ * Screenshot utility
+ */
+async function takeScreenshot(
+  page: Page | undefined,
+  scenarioName: string
+): Promise<void> {
   if (!page) {
     console.warn("Page object not available, skipping screenshot");
     return;
   }
 
-  const screenshotsDir: string = path.join(process.cwd(), "reports", "screenshots");
+  const screenshotsDir: string = path.join(
+    process.cwd(),
+    "reports",
+    "screenshots"
+  );
   fs.mkdirSync(screenshotsDir, { recursive: true });
 
-  const currentDateTime: string = new Date().toISOString().replace(/[:T.]/g, "_").slice(0, -5);
+  const currentDateTime: string = new Date()
+    .toISOString()
+    .replace(/[:T.]/g, "_")
+    .slice(0, -5);
   const fileName: string = `${scenarioName.replace(/\s+/g, "_")}_${currentDateTime}.png`;
   const filePath: string = path.join(screenshotsDir, fileName);
 
   await page.screenshot({ path: filePath, fullPage: true });
 }
 
+/**
+ * CustomWorld class: Represents the test world for each scenario
+ */
 export class CustomWorld {
   browser!: Browser;
   context!: BrowserContext;
@@ -105,16 +133,14 @@ export class CustomWorld {
 
   cardNumbers: string[] = [];
   countries: string[] = [];
-  
-  // Database utilities
+
+  // DB utilities and tracking
   db = prisma;
   dbUtils = {
     resetDatabase,
     testData,
-    dbFactories
+    dbFactories,
   };
-  
-  // Track test data between steps
   testData: {
     company?: any;
     driver?: any;
@@ -123,34 +149,55 @@ export class CustomWorld {
     [key: string]: any;
   } = {};
 
+  /**
+   * Initializes the browser based on the configured browser type
+   */
   async initializeBrowser(): Promise<Browser> {
     const launchOptions = {
       headless: HEADLESS_MODE,
       slowMo: SLOW_MOTION_DELAY,
-      args: MAXIMIZED_WINDOW && BROWSER_TYPE.toLowerCase() === "chrome" ? ["--start-maximized"] : [],
+      args:
+        MAXIMIZED_WINDOW && BROWSER_TYPE.toLowerCase() === "chrome"
+          ? ["--start-maximized"]
+          : [],
     };
 
     const browserType: string = BROWSER_TYPE.toLowerCase();
-    return await (browserType === "firefox" ? firefox : browserType === "webkit" || browserType === "safari" ? webkit : chromium).launch(launchOptions);
+    return await (browserType === "firefox"
+      ? firefox
+      : browserType === "webkit" || browserType === "safari"
+      ? webkit
+      : chromium
+    ).launch(launchOptions);
   }
 
+  /**
+   * Initializes test environment
+   */
   async init(): Promise<void> {
-    this.apiClient = new ApiClient(apiConfig.baseUrl, { timeout: apiConfig.timeout });
+    this.apiClient = new ApiClient(apiConfig.baseUrl, {
+      timeout: apiConfig.timeout,
+    });
 
     if (process.env.TEST_TYPE !== "api") {
       this.browser = await this.initializeBrowser();
-      this.context = await this.browser.newContext(MAXIMIZED_WINDOW ? { viewport: null } : {});
+      this.context = await this.browser.newContext(
+        MAXIMIZED_WINDOW ? { viewport: null } : {}
+      );
       this.page = await this.context.newPage();
 
       if (MAXIMIZED_WINDOW) {
-        await this.page.setViewportSize(await this.page.evaluate(() => ({
-          width: window.screen.availWidth,
-          height: window.screen.availHeight,
-        })));
+        await this.page.setViewportSize(
+          await this.page.evaluate(() => ({
+            width: window.screen.availWidth,
+            height: window.screen.availHeight,
+          }))
+        );
       }
 
       const jsonPath = process.env.STRIPE_CREDENTIALS;
-      if (!jsonPath) throw new Error("STRIPE_CREDENTIALS path not set in .env");
+      if (!jsonPath)
+        throw new Error("STRIPE_CREDENTIALS path not set in .env");
 
       const { card_numbers, countries } = getStripeCredentials(jsonPath);
       this.cardNumbers = card_numbers.map((n) => n.toString());
@@ -160,13 +207,38 @@ export class CustomWorld {
     }
   }
 
-  async cleanup(): Promise<void> {
+  /**
+   * Closes browser and cleans up
+   */
+  async close(): Promise<void> {
     if (this.page || this.browser) {
       await Promise.all([
-        this.page?.close().catch((err) => console.warn("Error closing page:", err)),
-        this.browser?.close().catch((err) => console.warn("Error closing browser:", err)),
+        this.page?.close().catch((err) =>
+          console.warn("Error closing page:", err)
+        ),
+        this.browser?.close().catch((err) =>
+          console.warn("Error closing browser:", err)
+        ),
       ]);
     }
+  }
+
+  /**
+   * Authenticates via API and sets token
+   */
+  async authenticateApi(): Promise<string> {
+    const response = await this.apiClient.post("/auth", {
+      username: apiConfig.auth.username,
+      password: apiConfig.auth.password,
+    });
+
+    if (response.status !== 200) {
+      throw new Error(`Authentication failed with status ${response.status}`);
+    }
+
+    const token = response.data.token;
+    this.apiClient.setAuthToken(token);
+    return token;
   }
 }
 
