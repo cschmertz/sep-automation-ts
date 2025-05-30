@@ -21,7 +21,8 @@ import { getStripeCredentials } from "../utilities/jsonUtils";
 import { ApiClient } from "../utilities/apiClient";
 import { apiConfig } from "../configs/apiConfig";
 import type { Booking } from "../models/booking";
-import prisma from "../utilities/dbClient";
+import { prisma, dbFactories } from "../utilities/prismaTypes";
+import { resetDatabase, testData } from "../utilities/dbUtils";
 
 dotenv.config();
 
@@ -31,7 +32,22 @@ const MAXIMIZED_WINDOW: boolean = true;
 const SLOW_MOTION_DELAY: number = 0;
 const DEFAULT_TIMEOUT: number = 30000;
 
+// Global DB connection flag
+let isDbConnected = false;
+
 Before(async function (this: CustomWorld) {
+  // Connect to DB if not already connected
+  if (!isDbConnected) {
+    try {
+      await prisma.$connect();
+      console.log("Database connected successfully");
+      isDbConnected = true;
+    } catch (error) {
+      console.error("Failed to connect to database:", error);
+      throw error;
+    }
+  }
+  
   await this.init();
 });
 
@@ -40,6 +56,24 @@ After(async function (this: CustomWorld, scenario) {
     await takeScreenshot(this.page, scenario.pickle.name);
   }
   await this.cleanup();
+});
+
+// Add database reset hook for scenarios with @db tag
+Before({ tags: "@db" }, async function () {
+  await resetDatabase();
+  console.log("Database reset complete");
+});
+
+// Global teardown for database
+process.on('beforeExit', async () => {
+  if (isDbConnected) {
+    try {
+      await prisma.$disconnect();
+      console.log("Database disconnected successfully");
+    } catch (e) {
+      console.warn("Error disconnecting Prisma client:", e);
+    }
+  }
 });
 
 async function takeScreenshot(page: Page | undefined, scenarioName: string): Promise<void> {
@@ -71,8 +105,23 @@ export class CustomWorld {
 
   cardNumbers: string[] = [];
   countries: string[] = [];
-
+  
+  // Database utilities
   db = prisma;
+  dbUtils = {
+    resetDatabase,
+    testData,
+    dbFactories
+  };
+  
+  // Track test data between steps
+  testData: {
+    company?: any;
+    driver?: any;
+    vehicle?: any;
+    department?: any;
+    [key: string]: any;
+  } = {};
 
   async initializeBrowser(): Promise<Browser> {
     const launchOptions = {
@@ -118,27 +167,6 @@ export class CustomWorld {
         this.browser?.close().catch((err) => console.warn("Error closing browser:", err)),
       ]);
     }
-
-    try {
-      await this.db.$disconnect();
-    } catch (e) {
-      console.warn("Error disconnecting Prisma client:", e);
-    }
-  }
-
-  async authenticateApi(): Promise<string> {
-    const response = await this.apiClient.post("/auth", {
-      username: apiConfig.auth.username,
-      password: apiConfig.auth.password,
-    });
-
-    if (response.status !== 200) {
-      throw new Error(`Authentication failed with status ${response.status}`);
-    }
-
-    const token = response.data.token;
-    this.apiClient.setAuthToken(token);
-    return token;
   }
 }
 
