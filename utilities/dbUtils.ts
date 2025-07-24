@@ -1,4 +1,4 @@
-import { prisma, dbFactories } from './prismaTypes';
+import { prisma, dbFactories } from './prismaClient';
 
 /**
  * Resets the database by truncating all tables

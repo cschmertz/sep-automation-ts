@@ -21,7 +21,7 @@ import { getStripeCredentials } from "../utilities/jsonUtils";
 import { ApiClient } from "../utilities/apiClient";
 import { apiConfig } from "../configs/apiConfig";
 import type { Booking } from "../models/booking";
-import { prisma, dbFactories } from "../utilities/prismaTypes";
+import { prisma, dbFactories } from "../utilities/prismaClient";
 import { resetDatabase, testData } from "../utilities/dbUtils";
 
 dotenv.config();
@@ -179,7 +179,7 @@ export class CustomWorld {
       timeout: apiConfig.timeout,
     });
 
-    if (process.env.TEST_TYPE !== "api") {
+    if (process.env.TEST_TYPE !== "db") {
       this.browser = await this.initializeBrowser();
       this.context = await this.browser.newContext(
         MAXIMIZED_WINDOW ? { viewport: null } : {}
