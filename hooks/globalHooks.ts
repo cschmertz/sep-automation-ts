@@ -62,7 +62,6 @@ Before(async function (this: CustomWorld) {
   await this.init();
 });
 
-
 /**
  * After hook: Cleans up browser and captures screenshot if scenario failed
  */

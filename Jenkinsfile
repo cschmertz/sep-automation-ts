@@ -7,8 +7,10 @@ pipeline {
         nodejs 'node-21'
     }
     triggers {
-        // Nightly regression tests on main branch only
-        cron(env.BRANCH_NAME == 'main' ? 'H 2 * * *' : '')  // 2 AM UTC daily
+        // Daily smoke tests at 8 AM UTC for main and dev branches
+        cron(env.BRANCH_NAME == 'main' || env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'dev' ? 'H 8 * * *' : '')
+        // Nightly regression tests at 2 AM UTC for dev branch only
+        cron(env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'dev' ? 'H 2 * * *' : '')
     }
     stages {
         stage('Checkout') {
@@ -35,31 +37,43 @@ pipeline {
                     def tags = ''
                     def testType = ''
                     
+                    // Check if this is a scheduled build
+                    def isScheduled = currentBuild.getBuildCauses('hudson.triggers.TimerTrigger$TimerTriggerCause')
+                    def currentHour = new Date().format('HH', TimeZone.getTimeZone('UTC')) as Integer
+                    
                     if (env.BRANCH_NAME == 'main') {
-                        // Main branch: smoke on commits, regression on nightly cron
-                        if (currentBuild.getBuildCauses('hudson.triggers.TimerTrigger$TimerTriggerCause')) {
-                            tags = '@regression'
-                            testType = 'Nightly Regression'
-                        } else {
+                        if (isScheduled) {
+                            // Daily smoke tests on main (morning)
                             tags = '@smoke'
-                            testType = 'Commit Smoke'
+                            testType = 'Daily Smoke Tests'
+                        } else {
+                            // Sprint-end merge: full regression
+                            tags = '@regression'
+                            testType = 'Sprint Merge Regression'
                         }
                     } else if (env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'dev') {
-                        // Dev branch: smoke tests for quick feedback
-                        tags = '@smoke'
-                        testType = 'Development Smoke'
+                        if (isScheduled) {
+                            // Determine if morning smoke (8 AM) or nightly regression (2 AM)
+                            if (currentHour >= 7 && currentHour <= 9) {
+                                tags = '@smoke'
+                                testType = 'Daily Smoke Tests'
+                            } else {
+                                tags = '@regression'
+                                testType = 'Nightly Regression'
+                            }
+                        } else {
+                            // Feature merge: critical/mini regression tests
+                            tags = '@critical'
+                            testType = 'Critical Integration Tests'
+                        }
                     } else if (env.BRANCH_NAME.startsWith('release/')) {
                         // Release branches: full regression suite
                         tags = '@regression'
                         testType = 'Release Regression'
-                    } else if (env.CHANGE_ID) {
-                        // Pull requests: smoke tests only
-                        tags = '@smoke'
-                        testType = 'Pull Request Smoke'
                     } else {
-                        // Feature branches: smoke tests
-                        tags = '@smoke'
-                        testType = 'Feature Branch Smoke'
+                        // Feature branches or PRs: no tests (they get deleted after merge)
+                        echo "Skipping tests on feature branch - tests run on dev branch after merge"
+                        return
                     }
                     
                     echo "Running ${testType} tests with tags: ${tags}"
@@ -71,6 +85,11 @@ pipeline {
     post {
         always {
             script {
+                // Skip post actions if tests were skipped
+                if (env.BRANCH_NAME != 'main' && env.BRANCH_NAME != 'develop' && env.BRANCH_NAME != 'dev' && !env.BRANCH_NAME.startsWith('release/')) {
+                    return
+                }
+                
                 def reportPath = 'reports/cucumber-html-report/index.html'
                 if (fileExists(reportPath)) {
                     publishHTML([
@@ -86,19 +105,34 @@ pipeline {
             }
             
             script {
-                // Customize notifications based on test type
-                def testType = env.BRANCH_NAME == 'main' && 
-                              currentBuild.getBuildCauses('hudson.triggers.TimerTrigger$TimerTriggerCause') ? 
-                              'Nightly Regression' : 'Smoke Tests'
+                // Skip notifications if tests were skipped
+                if (env.BRANCH_NAME != 'main' && env.BRANCH_NAME != 'develop' && env.BRANCH_NAME != 'dev' && !env.BRANCH_NAME.startsWith('release/')) {
+                    return
+                }
+                
+                // Determine test type for notifications
+                def isScheduled = currentBuild.getBuildCauses('hudson.triggers.TimerTrigger$TimerTriggerCause')
+                def currentHour = new Date().format('HH', TimeZone.getTimeZone('UTC')) as Integer
+                def testType = 'Tests'
+                
+                if (env.BRANCH_NAME == 'main') {
+                    testType = isScheduled ? 'Daily Smoke Tests' : 'Sprint Merge Regression'
+                } else if (env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'dev') {
+                    if (isScheduled) {
+                        testType = (currentHour >= 7 && currentHour <= 9) ? 'Daily Smoke Tests' : 'Nightly Regression'
+                    } else {
+                        testType = 'Critical Integration Tests'
+                    }
+                }
                 
                 slackSend (
                     color: currentBuild.currentResult == 'SUCCESS' ? 'good' : 'danger',
                     message: "${testType} - Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' on branch '${env.BRANCH_NAME}' finished with status: ${currentBuild.currentResult} - ${env.BUILD_URL}"
                 )
                 
-                // Only send email for failures or nightly runs
+                // Send email for failures or important scheduled runs
                 if (currentBuild.currentResult != 'SUCCESS' || 
-                    (env.BRANCH_NAME == 'main' && currentBuild.getBuildCauses('hudson.triggers.TimerTrigger$TimerTriggerCause'))) {
+                    (isScheduled && (env.BRANCH_NAME == 'main' || env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'dev'))) {
                     mail to: 'your-team@example.com',
                          subject: "Jenkins ${testType} - '${env.JOB_NAME}' on ${env.BRANCH_NAME} - ${currentBuild.currentResult}",
                          body: "Branch: ${env.BRANCH_NAME}\nTest Type: ${testType}\nStatus: ${currentBuild.currentResult}\nBuild: ${env.BUILD_URL}"
