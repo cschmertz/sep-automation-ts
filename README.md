@@ -1,142 +1,252 @@
-# SEP Automation Framework
+# Automation Framework: Cucumber BDD with Playwright & Prisma  
 
-The Self Enrollment Portal System is designed to facilitate a secure and efficient checkout experience for customers purchasing products or services online. This system encompasses features such as product selection, personal details entry, payment plan selection, terms and conditions agreement, and payment processing.
+![Cucumber BDD](https://img.shields.io/badge/BDD-Cucumber-green)  
+![Playwright](https://img.shields.io/badge/Test%20Runner-Playwright-blue)  
+![Prisma ORM](https://img.shields.io/badge/Database-Prisma-ff69b4)  
 
-## Table of Contents
-1. [Prerequisites](#Prerequisites)
-2. [Environment Setup](#environment-setup)
-3. [Framework Structure and Usage](#framework-structure-and-usage)
-4. [Project and Git Workflow](#project-and-git-workflow)<br>
+Modern automation framework implementing Behavior-Driven Development (BDD) with full-stack testing capabilities:  
+**UI Testing** (Playwright) + **API Testing** (Playwright APIRequestContext) + **Database Validation** (Prisma ORM)
+
+```mermaid
+graph TD
+    A[Feature Files] --> B[Step Definitions]
+    B --> C{Execution Layer}
+    C --> D[UI Actions - Playwright]
+    C --> E[API Calls - APIRequestContext]
+    C --> F[DB Operations - Prisma]
+    F --> G[PostgreSQL]
+    D --> H[Browser]
+    E --> I[REST API]
+```
+
+## Key Features
+
+- **Trifecta Testing**: Unified workflow for UI actions, API calls, and DB assertions  
+- **Playwright Integration**: Single tool for UI automation and API testing  
+- **Environment Config**: Toggle browsers/headless mode via environment variables  
+- **Atomic Tests**: Database reset hooks for test isolation  
+- **CI/CD Ready**: Advanced Jenkins pipeline with time-based triggers  
+- **Payment Testing**: Real-world Stripe card number validation  
+- **Parallel Execution**: 4x parallel workers for faster test runs  
 
 ## Prerequisites
 
-Before you begin, ensure you have the following installed on your system:
-- Node.js (v18 or higher)
-- npm (v6 or higher), which comes with Node.js
-- Visual Studio Code
-- Git
-- Playwright Test
-- cucumber (v10 or higher)
-- ts-node (v10 or higher)
-- types node (v20 or higher)
-- types cucumber (v7 or higher)
-- typescript (v5 or higher)
-
-To install necessary libraries, open your terminal and run:
-```sh
-npm install @playwright/test @cucumber/cucumber typescript ts-node @types/node @types/cucumber
-```
-<br>
-
-## Environment Setup
-
-### 1. Download the "sep-automation" Project Zip Folder
-1.1 Go to your LMS (CYDEO Learning APP)  
-1.2 Navigate to the "JavaScript and Playwright" course on your LMS  
-1.3 Expand the "Project Implementation" module  
-1.4 Click the "sep-automation" folder and download it
-
-### 2. Unzip the Downloaded Folder
-Unzip the downloaded folder and move it to your "VS Code Projects" folder.
-
-### 3. Open the Folder in VS Code
-3.1 Open the VS Code App  
-3.2 Go to `File` and click `Open Folder`  
-3.3 Select the "sep-automation" folder under the VS Code Projects
-
-### 4. Install VS Code Extensions
-Install the following extensions for a better development experience:
-- Better Comments
-- Cucumber (Gherkin) Full Support
-- Material Icon Theme
-- NPM
-- npm Intellisense
-- NPM Run
-- Playwright Snippets
-- Tabnine
-
-### 5. Add Environment Variables to User Settings Json File (settings.json) in VS Code
-5.1 Go to your LMS (CYDEO Learning APP).<br>
-5.2 Navigate to the "JavaScript and Playwright" course on your LMS.<br>
-5.3 Expand the "Project Implementation" module.<br>
-5.4 Download the "Environment Variables" text file.<br>
-5.5 Open the Environment Variables.txt file.<br>
-5.6 Add the credentials & [test card](https://docs.stripe.com/testing) info to the settings.json file of VS Code user settings as environment variables<br>
-
-### 6. Run the "test:tag" Script
-Go to the package.json file and run the "test:tag" script to verify the setup.<br>
-
-## Framework Structure and Usage
-
-### 1. The `features` folder
-This folder is used for storing the feature files, each feature file has a unique tag name which can be used to run specific feature in `package.json` file
-
-### 2. The `hooks` Folder
-This folder contains the globalHooks for cucumber step definitions.<br> It also has the playwright utility for page & browser
-
-### 3. The `pages` Folder
-This folder is used for storing webelements of the pages.<br>
-BasePage must be the parent class of all the page classes.<br>
-Every single page class must be added and initialized in the `globalPagesSetup.js` to be able to locate elements of each pages by using same page fixture of playwright
-
-### 4. The `steps` Folder
-This folder is used for storing the step definitions of the features.<br>
-The file names of the steps should match with its feature file's name.<br>
-
-### 5. `cucumber.cjs` File
-A CommonJS configuration file for CucumberJS, managing settings for BDD-style automated tests. It includes paths for step definitions, support files, plugins, and output formatting options, allowing customization of test execution.
-
-### 6. `package.json` File
-The `package.json` file for the "sep-automation" project includes several key sections:
-
-- **`name`**: Identifies the project as "sep-automation".
-- **`version`**: Marks the current version at "1.0.0".
-- **`main`**: Points to the main entry file of the project, "index.js".
-- **`scripts`**: Defines custom scripts for the project.
-- **`dependencies`**: Lists project dependencies, including Cucumber, Playwright for testing, and dotenv for environment variable management.
-
-This setup facilitates BDD-style testing with CucumberJS and Playwright, and includes cross-platform support for viewing test reports.<br>
-
-## Project and Git Workflow
-
-### 1. Upload the "sep-automation" Project to GitHub
-Create a new repository on GitHub and upload the project.
-### 2. Create a "develop" Branch
-Create a branch named develop in your GitHub repository.
-### 3. Create Feature Branches
-Create separate branches for each feature from the develop branch. Use the following naming convention for feature branches: feature/tagname_feature_name.
-Example: If the tag name of login.feature is @sep01, then the feature branch name should be feature/sep01-login.
-Note: You must create a unique feature branch for every feature file before you work on them.
-### 4. Update the Project
-Update your local repository:
-```sh
-git fetch
-git pull
+1. Node.js 18+
+2. PostgreSQL 12+
+3. Playwright browsers (`npx playwright install`)
+4. Environment variables (create `.env` file):
+```ini
+DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
+STRIPE_CREDENTIALS="path/to/stripe_data.json"
+TEST_TYPE="ui|api|db"  # Optional override
 ```
 
-### 5. Checkout the Specific Feature Branch
-Checkout the specific feature branch you need to work on:
-```sh
-git checkout feature/branch_name
+## Project Structure
+
+```bash
+├── features/               # Gherkin feature files
+├── steps/                  # Step definitions
+├── support/
+│   ├── world.ts            # Custom World implementation
+│   ├── hooks.ts            # Global before/after hooks
+│   └── globalPagesSetup.ts # Page Object Model initializer
+├── utilities/
+│   ├── apiClient.ts        # Playwright APIRequestContext wrapper
+│   ├── prismaClient.ts     # DB connection manager
+│   ├── dbUtils.ts          # Database utilities
+│   └── dataGenerators.ts   # Test data factories
+├── models/                 # TypeScript interfaces
+├── configs/                # API/DB configuration
+└── reports/                # Test execution reports
 ```
-Double-check the checked-out branch. The bottom left corner of VS Code shows the current branch.
 
-### 6. Work on the Feature File
-Work on the feature file of the branch you checked out.
+## Getting Started
 
-### 7. Commit and Push Changes
-After fully completing and testing the feature file, commit and push your changes with descriptive commit messages:
-```sh
-git add .
-git commit -m "Descriptive commit message"
-git push
+```bash
+# 1. Clone repository
+git clone https://github.com/yourrepo/automation-framework.git
+cd automation-framework
+
+# 2. Install dependencies
+npm ci
+
+# 3. Run tests
+npm run test:smoke       # Smoke tests
+npm run test:api         # API-only tests
+npm run test:db          # Database tests
+npm test                 # Full regression
+
+# 4. View reports (after execution)
+npm run Mac-open:report   # macOS
+npm run Windows-open:report # Windows
 ```
 
-Note: This will push to the remote feature branch.
-### 8. Create a Pull Request
-Create a pull request from your remote feature branch to the develop branch.
-### 9. Repeat Steps
-Repeat from step #3 until you finish all the user stories. By following these steps, you will be able to set up, work on, and manage your library automation project efficiently. Happy coding!<br>
+## Writing Tests
 
-## Authors
-Muhtar - [Muhtar](https://github.com/MuhtarMahmut)
+### Feature File Example
+```gherkin
+@smoke @ui
+Feature: User login
+  Scenario: Successful login with valid credentials
+    Given I navigate to login page
+    When I enter username "valid@user.com"
+    And I enter password "Passw0rd!"
+    And I click login button
+    Then I should see welcome message
+```
+
+### Step Definition with API Testing
+```typescript
+import { Given, When, Then } from "@cucumber/cucumber";
+
+Given("I have valid API credentials", async function () {
+  this.apiContext = await request.newContext();
+});
+
+When("I create a booking via API", async function () {
+  this.response = await this.apiContext.post('/bookings', {
+    data: {
+      userId: 123,
+      date: "2025-08-15"
+    }
+  });
+});
+
+Then("the booking should exist in database", async function () {
+  expect(this.response.status()).toEqual(201);
+  const bookingId = (await this.response.json()).id;
+  
+  const dbBooking = await this.db.bookings.findUnique({
+    where: { id: bookingId }
+  });
+  expect(dbBooking).not.toBeNull();
+});
+```
+
+## Test Data Management
+
+```typescript
+// Generate realistic test data
+const user = generateValidUser(); 
+
+// Get valid Stripe test card
+const cardNumber = getRandomCardNumber();
+
+// Create complex DB entities
+const { company, drivers } = await testData.createCompanyWithDrivers(5);
+```
+
+## CI/CD Pipeline (Jenkins)
+
+**Execution Strategy**:
+| Branch Type | Schedule Time | Test Type               | Tags Executed   |
+|-------------|---------------|-------------------------|-----------------|
+| `main`      | 8 AM UTC      | Daily Smoke             | `@smoke`        |
+| `main`      | Manual merge  | Sprint Regression       | `@regression`   |
+| `develop`   | 8 AM UTC      | Daily Smoke             | `@smoke`        |
+| `develop`   | 2 AM UTC      | Nightly Regression      | `@regression`   |
+| `develop`   | Manual merge  | Critical Integration    | `@critical`     |
+| `release/*` | Any           | Release Regression      | `@regression`   |
+
+**Pipeline Features**:
+- Automatic HTML report publishing
+- Slack notifications with status colors
+- Time-based test selection (UTC)
+- Environment variable injection
+- Smart branch filtering
+
+```mermaid
+journey
+    title Jenkins Pipeline Flow
+    section Main Branch
+      Scheduled(8 AM): 5: Daily Smoke
+      Manual Merge: 3: Sprint Regression
+    section Develop Branch
+      Scheduled(8 AM): 5: Daily Smoke
+      Scheduled(2 AM): 2: Nightly Regression
+      Manual Merge: 1: Critical Tests
+    section Release Branches
+      Any Trigger: 4: Release Regression
+```
+
+## Best Practices
+
+1. **Tagging Strategy**:
+   - `@ui`: UI-intensive tests
+   - `@api`: API-only tests (uses Playwright APIRequestContext)
+   - `@db`: Database-dependent tests
+   - `@smoke`: Critical path (5-10 min)
+   - `@critical`: Integration tests for develop branch
+   - `@regression`: Full suite (60+ min)
+
+2. **API Testing Pattern**:
+```typescript
+// Create isolated API context
+Before({ tags: "@api" }, async function () {
+  this.apiContext = await request.newContext();
+});
+
+// Reuse in steps
+When("I get user profile", async function () {
+  this.response = await this.apiContext.get('/users/me');
+});
+
+// Cleanup resources
+After({ tags: "@api" }, async function () {
+  await this.apiContext.dispose();
+});
+```
+
+3. **DB Factories**:
+```typescript
+// Create test entities
+const testDriver = await dbFactories.createDriver({
+  firstName: "Test",
+  lastName: "Driver",
+  licenseNumber: "DL-123456"
+});
+
+// Reuse in assertions
+Then("the driver should be active", async function () {
+  const driver = await this.db.drivers.findUnique({
+    where: { id: testDriver.id }
+  });
+  expect(driver.status).toEqual("ACTIVE");
+});
+```
+
+## Troubleshooting
+
+**Common Issues**:
+```bash
+# Database connection failures
+⚠️ Failed to connect to database. Tests will run without DB.
+
+# Playwright timeout
+Increase default timeout in support/world.ts:
+setDefaultTimeout(60000); 
+
+# View API traces
+await this.apiContext.tracing.stop({ path: 'api-trace.zip' });
+```
+
+**Generate DB Schema Diagram**:
+```bash
+npx prisma generate
+npx prisma migrate dev
+npx prisma studio  # View DB in browser
+```
+
+## Contribution
+
+1. Create feature branch from `develop`
+2. Write tests for new functionality
+3. Update Prisma schema if needed
+4. Submit PR with tag-based execution proof:
+```bash
+npm run test:tag -- --tags @new_feature
+```
+
+## License
+
+MIT License © 2025 Conor Schmertz
