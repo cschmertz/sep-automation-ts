@@ -1,4 +1,4 @@
-@sep27
+@ui @sep27
 Feature: Error messages for the invalid expiration number
 
     As a user, I want to be informed when my card's expiration date has failed. 

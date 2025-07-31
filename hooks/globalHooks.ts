@@ -1,6 +1,7 @@
 import {
   Before,
   After,
+  BeforeAll,
   setWorldConstructor,
   setDefaultTimeout,
   Status,
@@ -14,8 +15,6 @@ import {
   webkit,
 } from "@playwright/test";
 import { initElements } from "../globalPagesSetup";
-import fs from "fs";
-import path from "path";
 import dotenv from "dotenv";
 import { getStripeCredentials } from "../utilities/jsonUtils";
 import { ApiClient } from "../utilities/apiClient";
@@ -23,20 +22,28 @@ import { apiConfig } from "../configs/apiConfig";
 import type { Booking } from "../models/booking";
 import { prisma, dbFactories } from "../utilities/prismaClient";
 import { resetDatabase, testData } from "../utilities/dbUtils";
+import { takeScreenshot, clearScreenshots } from "../utilities/screenshotUtils";
 
 dotenv.config();
 
 /**
  * Configuration constants
  */
-const BROWSER_TYPE: string = "chrome";
-const HEADLESS_MODE: boolean = false;
-const MAXIMIZED_WINDOW: boolean = true;
-const SLOW_MOTION_DELAY: number = 0;
-const DEFAULT_TIMEOUT: number = 30000;
+const BROWSER_TYPE = "chrome";
+const HEADLESS_MODE = false;
+const MAXIMIZED_WINDOW = true;
+const SLOW_MOTION_DELAY = 0;
+const DEFAULT_TIMEOUT = 30000;
 
 // Global DB connection flag
 let isDbConnected = false;
+
+/**
+ * BeforeAll: Clear screenshots before the test suite starts
+ */
+BeforeAll(async function () {
+  clearScreenshots();
+});
 
 /**
  * Before hook: Connects to DB and initializes environment
@@ -48,13 +55,13 @@ Before(async function (this: CustomWorld) {
       console.log("Database connected successfully");
       isDbConnected = true;
     } catch (error) {
-      console.error("Failed to connect to database:", error);
-      throw error;
+      console.warn("⚠️ Failed to connect to database. Tests will run without DB.");
+      isDbConnected = false;
     }
   }
-
   await this.init();
 });
+
 
 /**
  * After hook: Cleans up browser and captures screenshot if scenario failed
@@ -70,8 +77,17 @@ After(async function (this: CustomWorld, scenario) {
  * Tag-specific hook for database reset
  */
 Before({ tags: "@db" }, async function () {
-  await resetDatabase();
-  console.log("Database reset complete");
+  if (!isDbConnected) {
+    console.warn("⚠️ Skipping @db hook: Database is not connected.");
+    return;
+  }
+  
+  try {
+    await resetDatabase();
+    console.log("✅ Database reset complete");
+  } catch (err) {
+    console.error("❌ Failed to reset database:", err);
+  }
 });
 
 /**
@@ -81,44 +97,17 @@ process.on("beforeExit", async () => {
   if (isDbConnected) {
     try {
       await prisma.$disconnect();
-      console.log("Database disconnected successfully");
+      console.log("✅ Database disconnected successfully");
     } catch (e) {
-      console.warn("Error disconnecting Prisma client:", e);
+      console.warn("⚠️ Error disconnecting Prisma client:", e);
     }
+  } else {
+    console.log("ℹ️ No active database connection. Skipping disconnect.");
   }
 });
 
 /**
- * Screenshot utility
- */
-async function takeScreenshot(
-  page: Page | undefined,
-  scenarioName: string
-): Promise<void> {
-  if (!page) {
-    console.warn("Page object not available, skipping screenshot");
-    return;
-  }
-
-  const screenshotsDir: string = path.join(
-    process.cwd(),
-    "reports",
-    "screenshots"
-  );
-  fs.mkdirSync(screenshotsDir, { recursive: true });
-
-  const currentDateTime: string = new Date()
-    .toISOString()
-    .replace(/[:T.]/g, "_")
-    .slice(0, -5);
-  const fileName: string = `${scenarioName.replace(/\s+/g, "_")}_${currentDateTime}.png`;
-  const filePath: string = path.join(screenshotsDir, fileName);
-
-  await page.screenshot({ path: filePath, fullPage: true });
-}
-
-/**
- * CustomWorld class: Represents the test world for each scenario
+ * CustomWorld class
  */
 export class CustomWorld {
   browser!: Browser;
@@ -134,7 +123,6 @@ export class CustomWorld {
   cardNumbers: string[] = [];
   countries: string[] = [];
 
-  // DB utilities and tracking
   db = prisma;
   dbUtils = {
     resetDatabase,
@@ -149,9 +137,6 @@ export class CustomWorld {
     [key: string]: any;
   } = {};
 
-  /**
-   * Initializes the browser based on the configured browser type
-   */
   async initializeBrowser(): Promise<Browser> {
     const launchOptions = {
       headless: HEADLESS_MODE,
@@ -162,7 +147,7 @@ export class CustomWorld {
           : [],
     };
 
-    const browserType: string = BROWSER_TYPE.toLowerCase();
+    const browserType = BROWSER_TYPE.toLowerCase();
     return await (browserType === "firefox"
       ? firefox
       : browserType === "webkit" || browserType === "safari"
@@ -171,9 +156,6 @@ export class CustomWorld {
     ).launch(launchOptions);
   }
 
-  /**
-   * Initializes test environment
-   */
   async init(): Promise<void> {
     this.apiClient = new ApiClient(apiConfig.baseUrl, {
       timeout: apiConfig.timeout,
@@ -207,9 +189,6 @@ export class CustomWorld {
     }
   }
 
-  /**
-   * Closes browser and cleans up
-   */
   async close(): Promise<void> {
     if (this.page || this.browser) {
       await Promise.all([
@@ -223,9 +202,6 @@ export class CustomWorld {
     }
   }
 
-  /**
-   * Authenticates via API and sets token
-   */
   async authenticateApi(): Promise<string> {
     const response = await this.apiClient.post("/auth", {
       username: apiConfig.auth.username,

@@ -1,4 +1,4 @@
-@sep25
+@ui @sep25
 Feature: Error message for the invalid card number
 
     As a user, I want to be informed when my card info has failed. 

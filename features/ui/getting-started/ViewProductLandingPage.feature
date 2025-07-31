@@ -1,4 +1,4 @@
-@sep07
+@ui @sep07
 Feature: View Product Landing Page
 
     As a customer, I should be able to see the product landing page.

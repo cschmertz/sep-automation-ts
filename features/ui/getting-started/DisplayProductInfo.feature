@@ -1,4 +1,4 @@
-@sep09
+@ui @sep09
 Feature: Display the product information
 
     As a customer, I should be able to see the product information.

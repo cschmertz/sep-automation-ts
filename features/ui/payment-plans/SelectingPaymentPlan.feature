@@ -1,4 +1,4 @@
-@sep14
+@ui @sep14
 Feature: Selecting a price plan
 
     As a customer, I want to be able to Choose a payment plan from the available options 

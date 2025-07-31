@@ -1,154 +1,59 @@
 [
   {
-    "description": "    As a system administrator\n    I want to manage company records\n    So that I can maintain accurate company information",
+    "description": "    As a customer, I want to see the program start dates and refund policy details before enrolling \n    so that I can make informed decisions.",
     "elements": [
       {
         "description": "",
-        "id": "company-crud-operations;create-and-read-a-company",
+        "id": "program-start-dates-and-refund-dates;verify-that-the-program-start-date-and-refund-date-are-displayed",
         "keyword": "Scenario",
-        "line": 7,
-        "name": "Create and read a company",
+        "line": 13,
+        "name": "Verify that the program start date and refund date are displayed",
         "steps": [
           {
             "keyword": "Before",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 2891484499
-            }
-          },
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 308552959
+              "duration": 3484501416
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 8,
-            "name": "I have a new company named \"Acme Corp\"",
+            "line": 10,
+            "name": "user is on the enrollment page",
             "match": {
-              "location": "steps/transmuda-database/companySteps.ts:5"
+              "location": "steps/getting-started/startAndRefundDates.ts:6"
             },
             "result": {
               "status": "passed",
-              "duration": 29810540
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 9,
-            "name": "I create the company in the database",
-            "match": {
-              "location": "steps/transmuda-database/companySteps.ts:14"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 15929416
+              "duration": 1559096042
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 10,
-            "name": "the company should exist with name \"Acme Corp\"",
-            "match": {
-              "location": "steps/transmuda-database/companySteps.ts:22"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 25065791
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 230547749
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@db",
-            "line": 1
-          },
-          {
-            "name": "@functional",
-            "line": 1
-          },
-          {
-            "name": "@crud",
-            "line": 1
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "company-crud-operations;update-a-company",
-        "keyword": "Scenario",
-        "line": 12,
-        "name": "Update a company",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 2858186999
-            }
-          },
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 249611875
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 13,
-            "name": "an existing company named \"Beta Inc\"",
-            "match": {
-              "location": "steps/transmuda-database/companySteps.ts:33"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 33993875
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
             "line": 14,
-            "name": "I update the company email to \"contact@beta.com\"",
+            "name": "the program start date is displayed",
             "match": {
-              "location": "steps/transmuda-database/companySteps.ts:42"
+              "location": "steps/getting-started/startAndRefundDates.ts:10"
             },
             "result": {
               "status": "passed",
-              "duration": 19266165
+              "duration": 4243859666
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 15,
-            "name": "the company should have email \"contact@beta.com\"",
+            "name": "the program refund date is displayed",
             "match": {
-              "location": "steps/transmuda-database/companySteps.ts:51"
+              "location": "steps/getting-started/startAndRefundDates.ts:15"
             },
             "result": {
               "status": "passed",
-              "duration": 13574791
+              "duration": 243935166
             }
           },
           {
@@ -156,86 +61,74 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 277657250
+              "duration": 135185457
             }
           }
         ],
         "tags": [
           {
-            "name": "@db",
+            "name": "@sep11",
             "line": 1
           },
           {
-            "name": "@functional",
-            "line": 1
-          },
-          {
-            "name": "@crud",
-            "line": 1
+            "name": "@sep11-1",
+            "line": 12
           }
         ],
         "type": "scenario"
       },
       {
         "description": "",
-        "id": "company-crud-operations;delete-a-company",
+        "id": "program-start-dates-and-refund-dates;verify-that-the-program-start-date-and-refund-date-are-correct",
         "keyword": "Scenario",
-        "line": 17,
-        "name": "Delete a company",
+        "line": 18,
+        "name": "Verify that the program start date and refund date are correct",
         "steps": [
           {
             "keyword": "Before",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 2816287833
-            }
-          },
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 287868832
+              "duration": 3359351082
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 18,
-            "name": "an existing company named \"Gamma LLC\"",
+            "line": 10,
+            "name": "user is on the enrollment page",
             "match": {
-              "location": "steps/transmuda-database/companySteps.ts:33"
+              "location": "steps/getting-started/startAndRefundDates.ts:6"
             },
             "result": {
               "status": "passed",
-              "duration": 42645749
+              "duration": 1524892916
             }
           },
           {
             "arguments": [],
-            "keyword": "When ",
+            "keyword": "Then ",
             "line": 19,
-            "name": "I delete the company",
+            "name": "the displayed start date for the program is correct",
             "match": {
-              "location": "steps/transmuda-database/companySteps.ts:61"
+              "location": "steps/getting-started/startAndRefundDates.ts:19"
             },
             "result": {
               "status": "passed",
-              "duration": 10430542
+              "duration": 45225875
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 20,
-            "name": "the company should not exist in the database",
+            "name": "the displayed refund date for the program is correct",
             "match": {
-              "location": "steps/transmuda-database/companySteps.ts:69"
+              "location": "steps/getting-started/startAndRefundDates.ts:25"
             },
             "result": {
               "status": "passed",
-              "duration": 6995500
+              "duration": 8081834
             }
           },
           {
@@ -243,232 +136,33 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 243915999
+              "duration": 121177832
             }
           }
         ],
         "tags": [
           {
-            "name": "@db",
+            "name": "@sep11",
             "line": 1
           },
           {
-            "name": "@functional",
-            "line": 1
-          },
-          {
-            "name": "@crud",
-            "line": 1
+            "name": "@sep11-2",
+            "line": 17
           }
         ],
         "type": "scenario"
       }
     ],
-    "id": "company-crud-operations",
+    "id": "program-start-dates-and-refund-dates",
     "line": 2,
     "keyword": "Feature",
-    "name": "Company CRUD Operations",
+    "name": "Program start dates and Refund dates",
     "tags": [
       {
-        "name": "@db",
-        "line": 1
-      },
-      {
-        "name": "@functional",
-        "line": 1
-      },
-      {
-        "name": "@crud",
+        "name": "@sep11",
         "line": 1
       }
     ],
-    "uri": "features/db/transmuda_database/company_crud.feature"
-  },
-  {
-    "description": "    As a database administrator\n    I want to enforce data integrity rules\n    So that the database remains consistent",
-    "elements": [
-      {
-        "description": "",
-        "id": "data-integrity-constraints;prevent-duplicate-company-names",
-        "keyword": "Scenario",
-        "line": 7,
-        "name": "Prevent duplicate company names",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 2744721708
-            }
-          },
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 307880584
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 8,
-            "name": "a company named \"Unique Corp\" exists",
-            "match": {
-              "location": "steps/transmuda-database/integritySteps.ts:5"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 52518833
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 9,
-            "name": "I try to create another company named \"Unique Corp\"",
-            "match": {
-              "location": "steps/transmuda-database/integritySteps.ts:14"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 5572208
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 10,
-            "name": "the operation should fail with a unique constraint error",
-            "match": {
-              "location": "steps/transmuda-database/integritySteps.ts:70"
-            },
-            "result": {
-              "status": "failed",
-              "duration": 10468416,
-              "error_message": "AssertionError [ERR_ASSERTION]: Expected an error but none occurred\n    at CustomWorld.<anonymous> (/Users/conorschmertz/Desktop/sep-automation-ts/steps/transmuda-database/integritySteps.ts:73:12)"
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 398887416
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@db",
-            "line": 1
-          },
-          {
-            "name": "@integrity",
-            "line": 1
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "data-integrity-constraints;prevent-duplicate-driver-license-numbers",
-        "keyword": "Scenario",
-        "line": 12,
-        "name": "Prevent duplicate driver license numbers",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 667912707
-            }
-          },
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 106750792
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 13,
-            "name": "a driver exists with license number \"DL-12345\"",
-            "match": {
-              "location": "steps/transmuda-database/integritySteps.ts:28"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 11564542
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 14,
-            "name": "I try to create another driver with license number \"DL-12345\"",
-            "match": {
-              "location": "steps/transmuda-database/integritySteps.ts:44"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 19103292
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 15,
-            "name": "the operation should fail with a unique constraint error",
-            "match": {
-              "location": "steps/transmuda-database/integritySteps.ts:70"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1910874
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 97574875
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@db",
-            "line": 1
-          },
-          {
-            "name": "@integrity",
-            "line": 1
-          }
-        ],
-        "type": "scenario"
-      }
-    ],
-    "id": "data-integrity-constraints",
-    "line": 2,
-    "keyword": "Feature",
-    "name": "Data Integrity Constraints",
-    "tags": [
-      {
-        "name": "@db",
-        "line": 1
-      },
-      {
-        "name": "@integrity",
-        "line": 1
-      }
-    ],
-    "uri": "features/db/transmuda_database/data_integrity.feature"
+    "uri": "features/ui/getting-started/StartAndRefundDates.feature"
   }
 ]
