@@ -7,4 +7,3 @@ import { expect } from '@playwright/test';
 Given('I am authenticated with the booking API', async function(this: CustomWorld) {
   await this.authenticateApi();
 });
-

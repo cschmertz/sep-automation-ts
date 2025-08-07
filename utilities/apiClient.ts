@@ -62,17 +62,10 @@ export class ApiClient {
     options: RequestOptions = {}
   ): Promise<ApiResponse<T>> {
     const url = `${this.baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
-    const headers = {
-      ...this.defaultOptions.headers,
-      ...options.headers,
-    };
+    const headers = { ...this.defaultOptions.headers, ...options.headers };
 
-    // Add auth token if available
-    if (this.authToken) {
-      headers['Cookie'] = `token=${this.authToken}`;
-    }
+    if (this.authToken) headers['Cookie'] = `token=${this.authToken}`;
 
-    // Create a new Playwright request context
     const context = await request.newContext({
       baseURL: this.baseUrl,
       extraHTTPHeaders: headers,
@@ -80,24 +73,19 @@ export class ApiClient {
     });
 
     try {
-      // Make the request using Playwright
       const response = await context[method.toLowerCase() as 'get' | 'post' | 'put' | 'patch' | 'delete'](
         path.startsWith('/') ? path : `/${path}`,
         { data: body }
       );
 
-      // Process response headers
       const responseHeaders: Record<string, string> = {};
-      const headersObj = response.headers();
-      Object.keys(headersObj).forEach(key => {
-        responseHeaders[key] = headersObj[key];
-      });
+      for (const [key, value] of Object.entries(response.headers())) {
+        responseHeaders[key] = value;
+      }
 
-      // Get response data
       let data: T;
       const contentType = responseHeaders['content-type'];
-
-      if (contentType && contentType.includes('application/json')) {
+      if (contentType?.includes('application/json')) {
         data = await response.json() as T;
       } else {
         const text = await response.text();
@@ -108,19 +96,27 @@ export class ApiClient {
         }
       }
 
-      // Dispose of the request context
-      await context.dispose();
-
-      return {
+      const apiResponse: ApiResponse<T> = {
         status: response.status(),
         data,
         headers: responseHeaders,
       };
+
+      if (apiResponse.status >= 400) {
+        throw new Error(
+          `API Error: ${method} ${url} -> ${apiResponse.status}\n` +
+          `Response: ${JSON.stringify(apiResponse.data)}`
+        );
+      }
+
+      await context.dispose();
+      return apiResponse;
+
     } catch (error) {
       console.error(`API Request Error: ${method} ${url}`, error);
-      // Make sure to dispose of the context even if there's an error
       await context.dispose();
       throw error;
     }
   }
+
 }
